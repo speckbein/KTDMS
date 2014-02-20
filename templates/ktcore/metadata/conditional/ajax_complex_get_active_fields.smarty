@@ -1,0 +1,5 @@
+<fieldList>
+{ foreach from=$aFieldIds item=iFieldId}
+    <field value="{$iFieldId}" />
+{/foreach}
+</fieldList>

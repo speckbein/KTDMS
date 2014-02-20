@@ -1,0 +1,89 @@
+<h2>{i18n}Document Link Type Management{/i18n}</h2>
+
+<p class="descriptiveText">{i18n arg_appname="$appname"}Within #appname# it is possible for users to create links between related documents. Link types may include constructs such as "associated with" and "duplicated by". Please create link types required by your organisation below.{/i18n}</p>
+
+{if ($add_form)}
+
+<form action="{$smarty.server.PHP_SELF}" method="POST">
+<fieldset>
+<legend>{i18n}Add a link type{/i18n}</legend>
+<p class="descriptiveText">{i18n}Specify the details for a new link type
+below.{/i18n}</p>
+
+{foreach item=oWidget from=$add_form}
+  {$oWidget->render()}
+{/foreach}
+
+<div class="form_actions">
+   <input type="hidden" name="action" value="add" />
+   <input type="submit" value="{i18n}Add Link Type{/i18n}" />
+</div>
+</fieldset>
+</form>
+
+{/if}
+
+{if ($edit_form)}
+
+<form action="{$smarty.server.PHP_SELF}" method="POST">
+<fieldset>
+<legend>{i18n}Edit a link type{/i18n}</legend>
+<p class="descriptiveText">{i18n}Specify the details for the link type below.{/i18n}</p>
+<input type="hidden" name="fLinkTypeId" value="{$old_link->getId()}" />
+{foreach item=oWidget from=$edit_form}
+  {$oWidget->render()}
+{/foreach}
+
+<div class="form_actions">
+   <input type="hidden" name="action" value="update" />
+   <input type="submit" value="{i18n}Change Link Type{/i18n}" />
+</div>
+</fieldset>
+</form>
+
+{/if}
+
+<!-- now the list of existing link types. -->
+
+<form action="{$smarty.server.PHP_SELF}" method="POST">
+<fieldset>
+<legend>{i18n}Manage Existing Link Types{/i18n}</legend>
+<p class="descriptiveText">{i18n}From this panel you can edit or delete
+existing link types.{/i18n}</p>
+
+<p><strong>{i18n}Note{/i18n}:</strong> {i18n}deleting a link type will delete <strong>all</strong>
+links of that type within the system.{/i18n}</p>
+
+<input type="hidden" name="action" value="delete" />
+
+{if (!empty($links))}
+<table class="listing">
+<thead>
+  <tr>
+     <th>{i18n}Name{/i18n}</th>
+     <th>{i18n}Description{/i18n}</th>
+     <th>{i18n}Edit{/i18n}</th>
+     <th>{i18n}Delete{/i18n}</th>
+  </tr>
+</thead>
+
+<tbody>
+  {foreach item=oLinkType from=$links}
+  <tr class="{cycle values=even,odd}">
+    <td>{$oLinkType->getName()}</td>
+    <td class="descriptiveText">{$oLinkType->getDescription()}</td>
+    <td><a href="{addQS}action=edit&fLinkTypeId={$oLinkType->getId()}{/addQS}" class="ktAction ktEdit">{i18n}edit link type{/i18n}</a></td>
+    <td><a href="{addQS}action=delete&fLinksToDelete[]={$oLinkType->getId()}{/addQS}" class="ktAction ktDelete">{i18n}edit link type{/i18n}</a></td>
+  </tr>
+  {/foreach}
+</tbody>
+</table>
+
+{else}
+
+<p><strong>{i18n}No link administrator changeable link types available.{/i18n}</strong>
+
+{/if}
+
+</fieldset>
+</form>

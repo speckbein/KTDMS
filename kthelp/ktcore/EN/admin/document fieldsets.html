@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+   <title>Document Fieldsets</title>
+</head>
+<body>
+<p>
+A <b>Fieldset</b> is a collection of Fields that may be associated with a specific Document Type, or with all Document Types in the system.
+</p>
+<br />
+<p>
+<h3>Types of Fields</h3>
+There are three types of fields:
+<ul>
+<li><b>Normal</b> - stores text metadata, such as invoice code</li>
+<li><b>Lookup</b> - contains a list of selectable options that display in a pick list</li>
+<li><b>Tree</b> - allows you to select metadata values by browsing a tree structure</li>
+</ul>
+</p>
+<br />
+<p>
+<h3>Types of Fieldsets</h3>
+<p>
+The following two fieldset types are KnowledgeTree defaults:
+</p>
+<p>
+<b>Note:</b> You can add plugins to KnowledgeTree that add different types of fieldsets, if required.
+</p>
+<p> 
+<ul>
+<li><b>Normal</b> - may contain a variety of field types, i.e. one or more, or a combination, of Lookup field's, Tree field's, and Normal field's.</li>
+<li><b>Conditional</b> - contains two or more Lookup fields. This fieldset must be configured in the Fieldset editing pages after you add the fieldset, in order to set one field as the 'master' field, and to define how user-selected values in the master field determine the display of subsequent fields and values that are presented when the user adds document metadata. Since conditional fieldsets comprise a collection of interdependent fields and values, you need to plan the fieldset structure before creating the fieldset in the DMS. To use this feature, enable the 'Conditional Metadata' plugin in <b>DMS Administration >> Miscellaneous</b></li>
+</ul>.
+</p>
+<h3>Generic Fieldsets</h3>
+<p>
+A fieldset that is defined as 'generic' is automatically associated with each document type you add to the repository. Define a fielset as 'generic' when adding or editing the fieldset.
+</p>
+<br />
+<p>
+<h3>Working with Fieldsets</h3>
+How to View Existing Fieldsets
+<p>
+<li>1.	To open the Fieldset management page, click Document Fieldsets in Document Metadata and Workflow Configuration.</li>
+<li>2.	On the Document Fieldsets page, view existing fieldsets listed in the table.</li>
+</p>
+<br />
+<p> 
+<h3>How to Add a New Fieldset</h3>
+<p>
+<li>1.	On the Fieldset management page in DMS Administration, click Create New Fieldset.</li>
+<li>2.	Define a name for the fieldset in the Fieldset Name field; then, add a description in the Description field.</li>
+<li>3.	In the Fieldset Type section, define whether the fieldset is 'Normal' or Conditional'; then, define whether this is a 'generic' fieldset.</li>
+<li>4.	Click Create Fieldset.</li>
+</p>
+<br />
+<p>
+<h3>How to Add a New Conditional Fieldset</h3>
+<p>
+Before you begin, plan the fieldset, and its lookup fields and lookup values.
+</p>
+<br />
+<p>
+<ul>
+<li>1.	Add a new fieldset, and define the fieldset as 'Conditional'.</li>
+<li>2.	On the Edit Fieldset page, click Add New Field to add two or more lookup fields to this fieldset, and add lookup values for each field.</li>
+<li>3.	Once you have added all the fields and their lookup fields, set one field as the 'master' field - click Manage Field Ordering on the Edit Fieldset page.</li>
+<li>4.	Define the control field / dependent field relationship between all fields in the fieldset, starting with the master field - click Manage Field Ordering on the Edit Fieldset page. Repeat this step until all fields have been ordered into the control / dependent structure.</li>
+<li>5.	Edit fieldset rules to define conditional behaviour. To do this, click Manage Conditional Behaviour on the Edit Fieldset page.</li>
+<li>6.	For each control field, select a lookup value; then, select two or more lookup values in the dependent field - the dependent field values will display when the user selects the control field lookup value in the conditional fieldset. Click save this dependency to save each behaviour; then, when you're ready to configure the next field, click edit field.</li>
+<li>7.	When fieldset rules (conditional behaviour) have been set up on all control/dependent fields, click View Overview on the Edit Fieldset page to walk through a test of the fieldset you created.</li>
+</ul>
+</p>
+<br />
+<p>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<fieldset class="conditional_metadata">
+    <legend>{$title}</legend>
+    <input type="hidden" class="fixed" name="fieldset" value="{$fieldset_id}" />
+    <p class="descriptiveText">
+        {$description}
+    </p>
+    
+    <div class="conditional_target">
+    {i18n}conditional data.{/i18n}
+    </div>
+    
+</fieldset>
+<!--
+<table id="brad-log"><tbody></tbody>
+</table>
+-->
+
+

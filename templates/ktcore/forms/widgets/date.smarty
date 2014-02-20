@@ -1,0 +1,28 @@
+<!--------------------------------------
+	---- Changes for Custom Fields -----
+	-------------------------------------->
+<div name="{$name}" id="div_{$name}" class="kt_date_field"></div>
+
+{literal}
+<script type="text/javascript">
+
+Ext.onReady(function(){
+
+    Ext.QuickTips.init();
+
+	var dp = new Ext.form.DateField({
+        name: '{/literal}{$name}{literal}',
+        {/literal}{if $required}allowBlank:false,{/if}{literal}
+        size:10,
+        format: 'Y-m-d',
+        invalidText : "{0} is not a valid date - it must be in the format YYYY-MM-DD",
+        fieldClass: 'metadatadate'
+        {/literal}{if $has_value},value: '{$value|sanitize_input}'{/if}{literal}
+        });
+
+    dp.render('div_{/literal}{$name}{literal}');
+});
+
+</script>
+
+{/literal}

@@ -1,0 +1,37 @@
+<fieldset class="cm">
+    <legend>{$title}</legend>
+    <input type="hidden" class="fixed" name="fieldset" value="{$fieldset_id}" />
+    {if $context->aError}
+    <div class="ktErrorMessage">
+    <span>
+	{i18n}The data for this conditional metadata fieldset was not
+completely provided.  Provide the extra information, and save your
+changes afterwards.{/i18n}
+    </span>
+    </div>
+    {/if}
+    <p class="descriptiveText">
+        {$description}
+    </p>
+    {* non-fixed *}
+    <div class="conditional_target">
+    {foreach from=$fields item=oField}
+    {assign var=fieldid value=$oField->getId()}
+    {assign var=fielderror value=$error[$fieldid]}
+    <div class="field {if $fielderror}error{/if}">
+        <label for="md_{$oField->getId()}">{$oField->getName()}</label>{capture assign=fid}{$oField->getId()}{/capture}
+        <p class="descriptiveText">{$oField->getDescription()}</p>
+        {if ($values.$fid !== null)}{$values.$fid}
+            {else}<span class="descriptiveText">{i18n}no value{/i18n}</span>{/if} 
+    </div>
+    {/foreach}
+    <input type="button" onclick="reviseConditional(this)" value="Change"/>
+    </div>
+    
+    
+    
+</fieldset>
+<!--
+<table id="brad-log"><tbody></tbody>
+</table>
+-->

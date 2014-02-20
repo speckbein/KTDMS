@@ -1,0 +1,51 @@
+{$context->oPage->requireCSSResource('resources/css/workflow-admin.css')}
+<h2>{i18n}Manage States{/i18n}</h2>
+
+<p class="descriptiveText">{i18n}As documents move through their lifecycle, they
+are placed in certain <strong>states</strong>.  For example, an invoice
+which has been mailed might be in the "Pending" <strong>state</strong> after
+the "sent" <strong>transition</strong> has been performed by a user.{/i18n}</p>
+
+<p class="descriptiveText">{i18n}<strong>Please Note:</strong> you can only delete states or transitions 
+while the workflow has no documents or document-versions assigned to the workflow.{/i18n}</p>
+
+<fieldset>
+<legend>{i18n}Create a new state{/i18n}</legend>
+<p class="descriptiveText">{i18n}A critical part of workflow is the creation of
+various different states for documents.{/i18n}</p>
+<span class="ktActionLink ktAdd"><a href="{addQS}action=createState&fWorkflowId={$oWorkflow->getId()}{/addQS}"
+   >{i18n}Create a new state{/i18n}</a></span>
+
+</fieldset>
+
+
+{if (empty($workflow_info.states))}
+<div class="ktInfoMessage"><span>{i18n}This workflow does not define any states.{/i18n}</span></div>
+{else}
+<ul id="workflow-states-list">
+{foreach item=oState from=$workflow_info.states}
+    <li><span class="workflow_element">{i18n}State{/i18n}:</span> <a href="{addQS}action=editState&fStateId={$oState->getId()}&fWorkflowId={$oWorkflow->getId()}{/addQS}" class="workflow_label">{$oState->getName()}</a>
+        {if ($workflow_info.can_delete)} | <span class="ktActionLink ktDelete"><a href="{addQS}action=deleteState&fStateId={$oState->getId()}&fWorkflowId={$oWorkflow->getId()}{/addQS}" >{i18n}Delete{/i18n}</a></span>{/if}
+    <ul>
+        <li>{i18n}Notified groups & roles{/i18n}:
+        {$context->getNotificationStringForState($oState)}
+        </li>
+        
+        <li>{i18n}Controlled Actions available{/i18n}:
+        {$context->getActionStringForState($oState)}
+        </li>
+        
+        <li>{i18n}Permissions overridden{/i18n}: {$context->getPermissionStringForState($oState)}</li>
+      
+        <li>{i18n}Transitions available{/i18n}:
+        {$context->getTransitionFromStringForState($oState)}
+        </li>
+      
+        <li>{i18n}Transitions to this state{/i18n}:
+        {$context->getTransitionToStringForState($oState)}
+        </li>
+    </ul>
+    </li>
+{/foreach}
+</ul>
+{/if}

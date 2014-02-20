@@ -1,0 +1,16 @@
+*~
+bin/luceneserver/lucene.pid
+bin/schedulerTask.sh 
+*.tmproj
+.DS_Store
+.buildpath
+.project
+.settings/
+dummy.php
+var/*
+clienttools/ExplorerCP
+clienttools/Office
+*.out
+baobab/
+ktoffice*/
+setup/wizard/install.lock

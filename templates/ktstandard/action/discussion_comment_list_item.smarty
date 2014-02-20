@@ -1,0 +1,22 @@
+{$context->oPage->requireCSSResource('resources/css/kt-discussion.css')}
+
+{if $cycle}
+<dl class="kt-discussion-comment">
+{else}
+<dl class="kt-discussion-comment odd-comment">
+{/if}
+
+  <dt>
+    <span class="subject">{$comment->getSubject()}</span>
+    by
+    <span class="author">{$creator->getName()}</span>
+    <span class="date">({$comment->getDate()})</span>
+
+  </dt>
+
+  <dd>{$comment->getBody()}</dd>
+
+</dl>
+
+
+

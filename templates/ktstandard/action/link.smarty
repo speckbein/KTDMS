@@ -1,0 +1,28 @@
+<h2>{i18n}Add Link{/i18n}</h2>
+
+
+{if $link_types}
+<p class="descriptiveText">{i18n}Select a target document to link to.{/i18n}
+</p>
+
+{foreach from=$breadcrumbs item=breadcrumb name=bc}
+    {if !$smarty.foreach.bc.last}
+        <a href="{$breadcrumb.url}">{$breadcrumb.name|sanitize}</a> &raquo;
+    {else}
+        {$breadcrumb.name|sanitize}
+    {/if}
+{/foreach}
+
+<form method="POST" action="{$smarty.server.PHP_SELF}" name="document_add_link_form">
+{$collection->render()}
+<div class="form_actions">
+<input type="hidden" name="action" value="type_select" />
+<input type="hidden" name="fDocumentId" value="{$parent->getId()}" />
+<input type="{$submit.type}" name="submit[move]" value="{i18n}Link{/i18n}" onclick="{$submit.onclick}" />
+</div>
+</form>
+{else}
+<div class="ktInfoMessage"><span>
+{i18n}No link types are defined. Please ask the administrator to add them.{/i18n}</span></div>
+
+{/if}

@@ -1,0 +1,79 @@
+{literal}
+<script type="text/javascript">
+
+function mouseOver()
+{
+var toggle = document.getElementById('exp');
+toggle.style.display = 'block';
+}
+function mouseOut()
+{
+var toggle = document.getElementById('exp');
+toggle.style.display = 'none';
+}
+
+function mouseOver1()
+{
+var toggle = document.getElementById('show');
+toggle.style.display = 'block';
+}
+function mouseOut1()
+{
+var toggle = document.getElementById('show');
+toggle.style.display = 'none';
+}
+
+</script>
+{/literal}
+
+<h2>{i18n}Document Indexer Statistics{/i18n}</h2>
+
+{if $stats}
+<table>
+<tr><td></td><td>{i18n}Last Optimization Date:{/i18n}</td><td>{$stats.optimisationDate}</td></tr>
+<tr><td></td><td>{i18n}Period Since Last Optimization:{/i18n}</td><td>{$stats.optimisationPeriod}</td></tr>
+<tr><td></td><td>{i18n}Last Indexing Date:{/i18n}</td><td>{$stats.indexingDate}</td></tr>
+<tr><td></td><td>{i18n}Period Since Last Indexing:{/i18n}</td><td>{$stats.indexingPeriod}</td></tr>
+<tr><td></td><td>{i18n}Total # Documents in Repository:{/i18n}</td><td>{$stats.docsInRepository}</td></tr>
+<tr><td></td><td>{i18n}Documents Indexed:{/i18n}</td><td>{$stats.docsInIndex}</td></tr>
+<tr><td></td><td>
+{if $stats.docsInQueue > 0}<a href="{$rootUrl}/admin.php?kt_path_info=search/pendingdocuments">{/if}
+{i18n}Documents in Indexing Queue:{/i18n}
+{if $stats.docsInQueue > 0}</a>{/if}
+</td><td>{$stats.docsInQueue}</td></tr>
+<tr><td></td><td>{if $stats.errorsInQueue > 0}<a href="{$rootUrl}/admin.php?kt_path_info=search/indexerrors">{/if}
+				{i18n}Documents with Indexing Problems:{/i18n}
+				{if $stats.errorsInQueue > 0}</a>{/if}
+				</td><td>{$stats.errorsInQueue}</td></tr>
+<tr><td><img src="{$rootUrl}/resources/graphics/info.gif" style="cursor: pointer;" onmouseOver="mouseOver1()" onmouseOut="mouseOut1()"/></td>
+<td><span>
+{i18n}Index Coverage:{/i18n}
+</span>
+
+<div id="show" style="display: none; position: absolute; width: 340px; height: 40px;  background-color: #CCCCCC;"><i>
+{i18n}Indexing coverage percentage may vary from total - not all documents contain text.{/i18n}</i>
+<br/>
+</div>
+<td>{$stats.indexingCoverage}</td></tr>
+
+
+<tr><td><img src="{$rootUrl}/resources/graphics/info.gif" style="cursor: pointer;" onmouseOver="mouseOver()" onmouseOut="mouseOut()"/></td>
+<td><span>
+{i18n}Queue Coverage :{/i18n}
+</span>
+
+<div id="exp" style="display: none; position: absolute; width: 410px; height: 40px;  background-color: #CCCCCC;"><i>
+{i18n}Queue coverage indicates percentage of documents currently queued for indexing in relation to total repository size.{/i18n}</i>
+<br/>
+</div>
+
+</td><td>{$stats.queueCoverage}</td></tr>
+</table>
+<table width="100%">
+{if $stats.noOptimisation}
+<tr><td valign=top>*<td><i>{i18n}To get the best performance out of Document Indexer, the indexes must be optimised periodically. This is managed by a background task. Please see the KnowledgeTree Administrator's Manual for more information.{/i18n}
+{/if}
+</table>
+{else}
+{i18n}Indexing has not run yet. Please check that the KTScheduler is running.{/i18n}
+{/if}

@@ -1,0 +1,191 @@
+<h2><img src="{if $config->get("ui/morphEnabled") == '1'}{$rootUrl}/skins/kts_{$config->get("ui/morphTo")}/title_bullet.png{else}{$rootUrl}/resources/graphics/title_bullet.png{/if}"/>{i18n}Fieldset{/i18n}:<br />{$oFieldset->getName()}</h2>
+
+{if $sIncomplete}
+<div class="ktErrorMessage">
+<span><strong>{i18n}Incomplete{/i18n}: </strong>{i18n}This conditional fieldset cannot be used{/i18n}: <br />
+{$sIncomplete}</span>
+</div>
+{/if}
+
+<form action="{$smarty.server.PHP_SELF}" method="POST">
+
+<fieldset>
+<legend>{i18n}Fieldset properties{/i18n}</legend>
+
+<p class="descriptiveText">
+  {i18n}Please complete the following fields to edit the fieldset's properties and then click <strong>Change</strong>. Required fields are marked with a red square.{/i18n}
+</p>
+
+<input type="hidden" name="fFieldsetId" value="{$oFieldset->getId()}" />
+<input type="hidden" name="action" value="editobject" />
+
+
+
+{foreach item=oWidget from=$edit_fieldset_fields}
+  {$oWidget->render()}
+{/foreach}
+
+<div class="form_actions">
+<input type="submit" name="submit" value="{i18n}Change{/i18n}" />
+</div>
+</fieldset>
+</form>
+
+{assign var="aFields" value=$oFieldset->getFields()}
+
+
+{assign var="showForm" value=true}
+{foreach from=$aFields item=oField}
+  {if ! $oField->getHasLookup() }
+    {assign var="showForm" value=false}
+  {/if}
+{/foreach}
+
+{if ($oFieldset->getIsConditional() || ($showForm && $context->haveConditional()))}
+<fieldset>
+<legend>{i18n}Conditionality{/i18n}</legend>
+
+<p class="descriptiveText">
+{i18n}A <strong>conditional</strong> fieldset contains only lookup fields.  The values for each
+field can depend on the user's selections for the others.{/i18n}
+</p>
+
+<div class="field">
+<label>{i18n}Conditional{/i18n}</label>
+<p class="descriptiveText">
+</p>
+{if $oFieldset->getIsConditional() }
+    {i18n}Yes{/i18n} 
+{else}
+    {i18n}No{/i18n} 
+{/if}
+</div>
+
+{if $oFieldset->getIsConditional() }
+{assign var=sIncomplete value=$context->getIncomplete($oFieldset)}
+{if $sIncomplete}
+<div class="ktError">
+<p>{i18n}This error prevents this fieldset from being set
+to complete{/i18n}: {$sIncomplete}</p>
+</div> <br />
+{/if}
+
+<form action="{$smarty.server.PHP_SELF}" method="POST">
+<input type="hidden" name="fFieldsetId" value="{$oFieldset->getId()}" />
+<input type="hidden" name="action" value="manageConditional" />
+<input type="submit" name="submit" value="{i18n}Manage conditional{/i18n}" />
+</form>
+
+<br />
+
+<form action="{$smarty.server.PHP_SELF}" method="POST">
+<input type="hidden" name="fFieldsetId" value="{$oFieldset->getId()}" />
+<input type="hidden" name="action" value="removeConditional" />
+<input type="submit" name="submit" value="{i18n}Remove conditional{/i18n}" />
+</form>
+
+{else}
+
+{assign var="showForm" value=true}
+{foreach from=$aFields item=oField}
+  {if ! $oField->getHasLookup() }
+    {assign var="showForm" value=false}
+  {/if}
+{/foreach}
+
+{if ($showForm && $context->haveConditional())}
+<form action="{$smarty.server.PHP_SELF}" method="POST">
+<input type="hidden" name="fFieldsetId" value="{$oFieldset->getId()}" />
+<input type="hidden" name="action" value="becomeConditional" />
+<input type="submit" name="submit" value="{i18n}Become conditional{/i18n}" />
+</form>
+{/if}
+
+
+
+{/if}
+
+</fieldset>
+{else}
+
+{if $context->haveConditional()}
+<div class="ktInfoMessage"><span>{i18n}This fieldset cannot be made conditional, since it contains fields which are not lookup types.{/i18n}</span></div>
+{/if}
+
+{/if}
+
+<h3>{i18n}Fieldset members{/i18n}</h3>
+
+<p class="descriptiveText">
+  {i18n}A fieldset is a collection of fields that comprise a defined set of document metadata. You may add, edit or delete members of this fieldset collection below.{/i18n}
+</p>
+
+
+{if $oFieldset->getFields() }
+<form action="{$smarty.server.PHP_SELF}" method="POST">
+<fieldset>
+<legend>{i18n}Existing members{/i18n}</legend>
+
+<input type="hidden" name="fFieldsetId" value="{$oFieldset->getId()}" />
+<input type="hidden" name="action" value="removefields" />
+
+<table class="kt_collection narrow" cellspacing="0">
+<thead>
+    <tr>
+        <th>&nbsp;</th>
+        <th>{i18n}Field Name{/i18n}</th>    
+        <th>{i18n}Edit{/i18n}</th>            
+        <th>{i18n}Type Description{/i18n}</th>            
+    </tr>
+
+</thead>
+
+<tbody>
+{foreach from=$oFieldset->getFields() item=oField}
+  <tr>
+      <td><input type="checkbox" name="fields[]" value="{$oField->getId()}" /></td>
+      <td class="title">
+{$oField->getName()}
+</td>
+<td>
+<a href="{addQS}action=editField&fFieldId={$oField->getId()}&fFieldsetId={$oFieldset->getId()}{/addQS}" class="ktAction ktEdit">{i18n}edit{/i18n}</a>
+</td>
+<td>
+<span class="descriptiveText">{$oField->getTypeDescription()}</span>
+</td>
+</tr>
+
+{/foreach}
+</tbody>
+
+</table>
+<div class="form_actions">
+  <input type="submit" name="submit" value="{i18n}Remove fields{/i18n}" />
+</div>
+</fieldset>
+</form>
+{/if}
+
+
+<form action="{$smarty.server.PHP_SELF}" method="POST">
+
+<fieldset>
+<legend>{i18n}Add a new field{/i18n}</legend>
+
+<p class="descriptiveText">{i18n}To add a new field, enter the field's name, description and field type below and then click <strong>Add field</strong>. If the field type requires additional lookup values you will be prompted to enter them.{/i18n}</p>
+
+<input type="hidden" name="fFieldsetId" value="{$oFieldset->getId()}">
+<input type="hidden" name="action" value="newfield">
+
+
+
+{foreach item=oWidget from=$create_field_fields}
+  {$oWidget->render()}
+{/foreach}
+
+<div class="form_actions">
+  <input type="submit" name="submit" value="{i18n}Add field{/i18n}" />
+</div>
+</fieldset>
+</form>
+

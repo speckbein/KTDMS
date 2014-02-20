@@ -1,0 +1,9 @@
+<h2><img src="{if $config->get("ui/morphEnabled") == '1'}{$rootUrl}/skins/kts_{$config->get("ui/morphTo")}/title_bullet.png{else}{$rootUrl}/resources/graphics/title_bullet.png{/if}"/>{i18n}Archive Document{/i18n}:<br />{$context->oDocument->getName()|sanitize}</h2>
+
+<p class="descriptiveText">{i18n}Archiving a document changes the
+document's state to invisible to non-administrative users. Only an
+Administrator may unarchive a document. Please note that this is a
+non-permanent change and does not delete the document from the
+repository.{/i18n}</p>
+
+{$form->render()}

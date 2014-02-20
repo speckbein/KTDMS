@@ -1,0 +1,18 @@
+<P>
+{i18n}Migration to using the new search requires text to be moved from the database full text indexes into the Document Indexer Service. This may take some time depending
+on the size of the repository. For this reason, the process is a background task.{/i18n}
+<P>
+
+<table>
+<tr><td>{i18n}Documents processed in a single migration run:{/i18n}</td><td>{$batchDocuments}</td></tr>
+<tr><td>{i18n}Frequency at which migration batch task runs:{/i18n}</td><td>{$batchPeriod}</td></tr>
+<tr><td>{i18n}Migration process started on:{/i18n}</td><td>{$migrationStart}</td></tr>
+<tr><td>{i18n}Migration process has taken:{/i18n}</td><td>{$migrationPeriod}</td></tr>
+<tr><td>{i18n}Total documents migrated:{/i18n}</td><td>{$migratedDocuments}</td></tr>
+<tr><td>{i18n}Total documents to be migrated:{/i18n}</td><td>{$migratingDocuments}</td></tr>
+<tr><td>{i18n}Estimated completion time:{/i18n}</td><td>{$estimatedTime}</td></tr>
+<tr><td>{i18n}Estimated migration time remaining:{/i18n}</td><td>{$estimatedPeriod}</td></tr>
+</table>
+<B>{i18n}Note:</b> <i>Search results will not be accurate until the migration process is complete.{/i18n}</i>
+<br>{i18n}This dashlet will disappear when the migration process is complete.{/i18n}
+<br>

@@ -1,0 +1,93 @@
+<div class="detail_fieldset">
+    <h3>{i18n}Generic Information{/i18n}</h3>
+    <p class="descriptiveText">
+        {i18n arg_appname="$appname"}The information in this section is stored by #appname# for every
+        document.{/i18n}
+    </p>
+
+    <table class="metadatatable versioned" cellspacing="0" cellpadding="5">
+
+{capture assign="oldval"}{$comparison_title|sanitize}{/capture}
+{capture assign="newval"}{$title|sanitize}{/capture}
+    <tr class="odd first">
+        <th>{i18n}Document Title{/i18n}</th>
+        <td class="current {if ($oldval != $newval)}different{/if}">{$newval}</td>
+        <td class="previous {if ($oldval != $newval)}different{/if}">{$oldval}</td>
+    </tr>
+
+{capture assign="oldval"}{$comparison_filename|sanitize} ({$context->_sizeHelper($comparison_document->getSize())}){/capture}
+{capture assign="newval"}{$filename|sanitize} ({$context->_sizeHelper($document->getSize())}){/capture}
+    <tr class="even">
+        <th>{i18n}Document Filename{/i18n}</th>
+        <td class="current {if ($oldval != $newval)}different{/if}">{$newval}</td>
+        <td class="previous {if ($oldval != $newval)}different{/if}">{$oldval}</td>
+    </tr>
+
+{capture assign="oldval"}{$context->_mimeHelper($comparison_document->getMimeTypeID())}{/capture}
+{capture assign="newval"}{$context->_mimeHelper($document->getMimeTypeID())}{/capture}
+    <tr class="odd">
+        <th>{i18n}File is a{/i18n}</th>
+        <td class="current {if ($oldval != $newval)}different{/if}">{$newval}</td>
+        <td class="previous {if ($oldval != $newval)}different{/if}">{$oldval}</td>
+    </tr>
+
+{capture assign="oldval"}{$comparison_document->getMajorVersionNumber()}.{$comparison_document->getMinorVersionNumber()}{/capture}
+{capture assign="newval"}{$document->getMajorVersionNumber()}.{$document->getMinorVersionNumber()}{/capture}
+    <tr class="even">
+        <th>{i18n}Document Version{/i18n}</th>
+        <td class="current {if ($oldval != $newval)}different{/if}">{$newval}</td>
+        <td class="previous {if ($oldval != $newval)}different{/if}">{$oldval}</td>
+    </tr>
+
+    <tr class="odd">
+        <th>{i18n}Created by{/i18n}</th>
+        <td colspan="2">{$creator} ({$creation_date}) <span class="descriptiveText">({i18n}this cannot change between versions{/i18n})</td>
+    </tr>
+
+    <tr class="even">
+        <th>{i18n}Owned by{/i18n}</th>
+        <td colspan="2">{$owner} <span class="descriptiveText">({i18n}this cannot change between versions{/i18n})</td>
+    </tr>
+
+{capture assign="oldval"}{$comparison_last_modified_by} ({$comparison_last_modified_date}){/capture}
+{capture assign="newval"}{$last_modified_by} ({$last_modified_date}){/capture}
+    <tr class="odd">
+        <th>{i18n}Last update by{/i18n}</th>
+        <td class="current {if ($oldval != $newval)}different{/if}">{$newval}</td>
+        <td class="previous {if ($oldval != $newval)}different{/if}">{$oldval}</td>
+    </tr>
+
+{capture assign="oldval"}{$comparison_document_type}{/capture}
+{capture assign="newval"}{$document_type}{/capture}
+    <tr class="even">
+        <th>{i18n}Document Type{/i18n}</th>
+        <td class="current {if ($oldval != $newval)}different{/if}">{$newval}</td>
+        <td class="previous {if ($oldval != $newval)}different{/if}">{$oldval}</td>
+    </tr>
+
+{capture assign="oldval"}{if $comparison_workflow_state}
+{$comparison_workflow_state->getName()}
+{else}
+{i18n}No workflow{/i18n}
+{/if}{/capture}
+            {capture assign="newval"}{if $workflow_state}
+{$workflow_state->getName()}
+{else}
+{i18n}No workflow{/i18n}
+{/if}{/capture}
+    <tr class="odd">
+        <th>{i18n}Workflow status{/i18n}</th>
+        <td class="current {if ($oldval != $newval)}different{/if}">{$newval}</td>
+        <td class="previous {if ($oldval != $newval)}different{/if}">{$oldval}</td>
+    </tr>
+
+    <tr class="even">
+        <th>{i18n}Document ID{/i18n}</th>
+        <td colspan="2">{$document->getId()} <span class="descriptiveText">({i18n}this cannot change between versions{/i18n})</span></td>
+    </tr>
+
+    </table>
+
+
+    <div class="floatClear"><!-- --> </div>
+</div>

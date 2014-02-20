@@ -1,0 +1,373 @@
+
+/*
+ *  Javascript (actual translations);
+ */
+ 
+{literal}
+var i18n = {};
+
+function _(trans_string) {
+    var newstr = i18n[trans_string];
+    if (!isUndefinedOrNull(newstr)) { return newstr; } 
+    else {
+       return trans_string;
+    }
+}
+{/literal}
+
+
+//strings for file: main.js
+
+i18n['Upload succeeded'] = '{i18n}Upload succeeded{/i18n}';
+
+i18n['Document type changed'] = '{i18n}Document type changed{/i18n}';
+
+i18n['Upload failed'] = '{i18n}Upload failed{/i18n}';
+
+i18n['Your document has not been saved.'] = '{i18n}Your document has not been saved.{/i18n}';
+
+i18n['A newer version of this document is available. Would you like to open it instead?'] = '{i18n}A newer version of this document is available. Would you like to open it instead?{/i18n}';
+
+i18n['Upload'] = '{i18n}Upload{/i18n}';
+
+i18n['Upload cancelled'] = '{i18n}Upload cancelled{/i18n}';
+
+i18n['Your document has been saved.'] = '{i18n}Your document has been saved.{/i18n}';
+
+i18n['Download failed'] = '{i18n}Download failed{/i18n}';
+
+i18n['Your document has not been downloaded.'] = '{i18n}Your document has not been downloaded.{/i18n}';
+
+i18n['Download succeeded'] = '{i18n}Download succeeded{/i18n}';
+
+i18n['Your document has been downloaded.'] = '{i18n}Your document has been downloaded.{/i18n}';
+
+i18n['Checkout failed'] = '{i18n}Checkout failed{/i18n}';
+
+i18n['Your document has not been checked out.'] = '{i18n}Your document has not been checked out.{/i18n}';
+
+i18n['Checkout succeeded'] = '{i18n}Checkout succeeded{/i18n}';
+
+i18n['Your document has been checked out.'] = '{i18n}Your document has been checked out.{/i18n}';
+
+i18n['Checkin failed'] = '{i18n}Checkin failed{/i18n}';
+
+i18n['Your document has not been checked in.'] = '{i18n}Your document has not been checked in.{/i18n}';
+
+i18n['Checkin succeeded'] = '{i18n}Checkin succeeded{/i18n}';
+
+i18n['Your document has been checked in.'] = '{i18n}Your document has been checked in.{/i18n}';
+
+i18n['Document checked in.'] = '{i18n}Document checked in.{/i18n}';
+
+i18n['Document checked out.'] = '{i18n}Document checked out.{/i18n}';
+
+i18n['Cancel checkout failed'] = '{i18n}Cancel checkout failed{/i18n}';
+
+i18n['The check-out has not been cancelled.'] = '{i18n}The check-out has not been cancelled.{/i18n}';
+
+i18n['Cancel checkout succeeded'] = '{i18n}Cancel checkout succeeded{/i18n}';
+
+i18n['The check-out has been cancelled.'] = '{i18n}The check-out has been cancelled.{/i18n}';
+
+i18n['Properties could not be saved.'] = '{i18n}Properties could not be saved.{/i18n}';
+
+i18n['Properties have been saved.'] = '{i18n}Properties have been saved.{/i18n}';
+
+i18n['Login failed'] = '{i18n}Login failed{/i18n}';
+
+i18n['Login failed.'] = '{i18n}Login failed.{/i18n}';
+
+i18n['Unable to connect to server'] = '{i18n}Unable to connect to server{/i18n}';
+
+i18n['Please verify your<br />Internet connection, <br /> and try again.'] = '{i18n}Please verify your<br />Internet connection, <br /> and try again.{/i18n}';
+
+//strings for file: classes/actionMenu.js
+
+//strings for file: classes/actionsEnum.js
+
+//strings for file: classes/commentsWindow.js
+
+i18n['Cancelling edit of document (check-in)'] = '{i18n}Cancelling edit of document (check-in){/i18n}';
+
+i18n['Provide a reason for cancelling this edit.<br ><br >'] = '{i18n}Provide a reason for cancelling this edit.<br ><br >{/i18n}';
+
+i18n['Continue Editing (check-out)'] = '{i18n}Continue Editing (check-out){/i18n}';
+
+i18n['Provide a reason for this edit.<br ><br >'] = '{i18n}Provide a reason for this edit.<br ><br >{/i18n}';
+
+i18n['Editing Document (check-out)'] = '{i18n}Editing Document (check-out){/i18n}';
+
+i18n['Provide a reason for editing this document.<br ><br >'] = '{i18n}Provide a reason for editing this document.<br ><br >{/i18n}';
+
+i18n['Saving Document (check-in)'] = '{i18n}Saving Document (check-in){/i18n}';
+
+i18n['For historical purposes, describe the changes you made to this document.<br ><br >'] = '{i18n}For historical purposes, describe the changes you made to this document.<br ><br >{/i18n}';
+
+i18n['OK'] = '{i18n}OK{/i18n}';
+
+i18n['Cancel'] = '{i18n}Cancel{/i18n}';
+
+i18n['Please enter a comment'] = '{i18n}Please enter a comment{/i18n}';
+
+i18n['Use this comment next time.'] = '{i18n}Use this comment next time.{/i18n}';
+
+i18n['Comment Required'] = '{i18n}Comment Required{/i18n}';
+
+//strings for file: classes/confirmPanel.js
+
+i18n['Yes'] = '{i18n}Yes{/i18n}';
+
+i18n['No'] = '{i18n}No{/i18n}';
+
+//strings for file: classes/emailWindow.js
+
+i18n['Send Email'] = '{i18n}Send Email{/i18n}';
+
+i18n['Message:'] = '{i18n}Message:{/i18n}';
+
+i18n['Type your message here ...'] = '{i18n}Type your message here ...{/i18n}';
+
+i18n['To:'] = '{i18n}To:{/i18n}';
+
+i18n['Searching...'] = '{i18n}Searching...{/i18n}';
+
+i18n['Search'] = '{i18n}Search{/i18n}';
+
+i18n['Delete'] = '{i18n}Delete{/i18n}';
+
+i18n['Please enter a message'] = '{i18n}Please enter a message{/i18n}';
+
+i18n['Please enter some recipients'] = '{i18n}Please enter some recipients{/i18n}';
+
+i18n['No Recipients'] = '{i18n}No Recipients{/i18n}';
+
+i18n['Document Sent'] = '{i18n}Document Sent{/i18n}';
+
+i18n['Document has been emailed to recipients'] = '{i18n}Document has been emailed to recipients{/i18n}';
+
+i18n['Unable to email document'] = '{i18n}Unable to email document{/i18n}';
+
+i18n['Document has not been emailed to recipients.'] = '{i18n}Document has not been emailed to recipients.{/i18n}';
+
+i18n['Email Document'] = '{i18n}Email Document{/i18n}';
+
+//strings for file: classes/feedbackPanel.js
+
+//strings for file: classes/floatingFeedbackPanel.js
+
+//strings for file: classes/loginWindow.js
+
+i18n['Server Settings'] = '{i18n}Server Settings{/i18n}';
+
+i18n['Display Language'] = '{i18n}Display Language{/i18n}';
+
+i18n['Username'] = '{i18n}Username{/i18n}';
+
+i18n['Password'] = '{i18n}Password{/i18n}';
+
+i18n['Login'] = '{i18n}Login{/i18n}';
+
+//strings for file: classes/mainWindow.js
+
+i18n['Document already open'] = '{i18n}Document already open{/i18n}';
+
+i18n['Unable to delete folder'] = '{i18n}Unable to delete folder{/i18n}';
+
+i18n['Delete Folder'] = '{i18n}Delete Folder{/i18n}';
+
+i18n['This will delete this folder.<br/>Are you sure you want to continue?'] = '{i18n}This will delete this folder.<br/>Are you sure you want to continue?{/i18n}';
+
+i18n['Unable to Delete Folder'] = '{i18n}Unable to Delete Folder{/i18n}';
+
+i18n['This folder contains other documents/folders<br/>and may not be deleted.'] = '{i18n}This folder contains other documents/folders<br/>and may not be deleted.{/i18n}';
+
+i18n['Introduction'] = '{i18n}Introduction{/i18n}';
+
+i18n['The requested action has not been implemented'] = '{i18n}The requested action has not been implemented{/i18n}';
+
+i18n['Any unsaved changes will be lost! Are you sure you want to continue?'] = '{i18n}Any unsaved changes will be lost! Are you sure you want to continue?{/i18n}';
+
+i18n['Error'] = '{i18n}Error{/i18n}';
+
+i18n['Please close all open editors.'] = '{i18n}Please close all open editors.{/i18n}';
+
+i18n['Warning'] = '{i18n}Warning{/i18n}';
+
+i18n['Do you want to add the currently open Office document as a new version of [-doctitle-]?'] = '{i18n}Do you want to add the currently open Office document as a new version of [-doctitle-]?{/i18n}';
+
+i18n['Are you sure you want to cancel your edit?'] = '{i18n}Are you sure you want to cancel your edit?{/i18n}';
+
+i18n['This document is not saved to KnowledgeTree. Are you sure you want to cancel saving to KnowledgeTree?'] = '{i18n}This document is not saved to KnowledgeTree. Are you sure you want to cancel saving to KnowledgeTree?{/i18n}';
+
+i18n['Your document has been saved to KnowledgeTree'] = '{i18n}Your document has been saved to KnowledgeTree{/i18n}';
+
+i18n['No permission'] = '{i18n}No permission{/i18n}';
+
+i18n['You need to have permission to perform this action'] = '{i18n}You need to have permission to perform this action{/i18n}';
+
+i18n['Save'] = '{i18n}Save{/i18n}';
+
+i18n['Adds your open Office document to KnowledgeTree. You must have \'write\' permissions on the folder.'] = '{i18n}Adds your open Office document to KnowledgeTree. You must have \'write\' permissions on the folder.{/i18n}';
+
+i18n['Add Folder'] = '{i18n}Add Folder{/i18n}';
+
+i18n['Provides an interface to create a new folder under the current folder. You must have \'add\' permissions on the folder.'] = '{i18n}Provides an interface to create a new folder under the current folder. You must have \'add\' permissions on the folder.{/i18n}';
+
+i18n['Rename Folder'] = '{i18n}Rename Folder{/i18n}';
+
+i18n['Provides an interface to rename the current folder. You must have \'rename\' permissions on the folder.'] = '{i18n}Provides an interface to rename the current folder. You must have \'rename\' permissions on the folder.{/i18n}';
+
+i18n['Provides an interface to delete the current folder. You must have \'delete\' permissions on the folder.'] = '{i18n}Provides an interface to delete the current folder. You must have \'delete\' permissions on the folder.{/i18n}';
+
+i18n['New folder'] = '{i18n}New folder{/i18n}';
+
+i18n['Saves active document to a new folder. You must have \'write\' permissions on the folder.'] = '{i18n}Saves active document to a new folder. You must have \'write\' permissions on the folder.{/i18n}';
+
+i18n['Edit'] = '{i18n}Edit{/i18n}';
+
+i18n['Opens the selected KnowledgeTree document in Office for editing and sets the version in KnowledgeTree to \'read only\'. You must have \'write\' permissions.'] = '{i18n}Opens the selected KnowledgeTree document in Office for editing and sets the version in KnowledgeTree to \'read only\'. You must have \'write\' permissions.{/i18n}';
+
+i18n['View a Copy'] = '{i18n}View a Copy{/i18n}';
+
+i18n['Open the selected KnowledgeTree document for viewing in Office. Changing the local copy does not update the KnowledgeTree version.'] = '{i18n}Open the selected KnowledgeTree document for viewing in Office. Changing the local copy does not update the KnowledgeTree version.{/i18n}';
+
+i18n['Save As New Version'] = '{i18n}Save As New Version{/i18n}';
+
+i18n['Adds your open document as a new version of the KnowledgeTree document selected in the tree.'] = '{i18n}Adds your open document as a new version of the KnowledgeTree document selected in the tree.{/i18n}';
+
+i18n['Email Document to users.'] = '{i18n}Email Document to users.{/i18n}';
+
+i18n['Save Properties'] = '{i18n}Save Properties{/i18n}';
+
+i18n['Saves edited document properties to KnowledgeTree.'] = '{i18n}Saves edited document properties to KnowledgeTree.{/i18n}';
+
+i18n['Saves your changes to KnowledgeTree and allows you to continue editing the document in Office.'] = '{i18n}Saves your changes to KnowledgeTree and allows you to continue editing the document in Office.{/i18n}';
+
+i18n['Save and Close'] = '{i18n}Save and Close{/i18n}';
+
+i18n['Saves your changes to KnowledgeTree and closes the document in Office.'] = '{i18n}Saves your changes to KnowledgeTree and closes the document in Office.{/i18n}';
+
+i18n['Cancel Edit'] = '{i18n}Cancel Edit{/i18n}';
+
+i18n['Closes a KnowledgeTree document currently open in Office for editing. Your changes are not saved to KnowledgeTree.'] = '{i18n}Closes a KnowledgeTree document currently open in Office for editing. Your changes are not saved to KnowledgeTree.{/i18n}';
+
+i18n['Undo Changes'] = '{i18n}Undo Changes{/i18n}';
+
+i18n['Restores document properties to previously saved values.'] = '{i18n}Restores document properties to previously saved values.{/i18n}';
+
+i18n['Open Another Document'] = '{i18n}Open Another Document{/i18n}';
+
+i18n['View/edit another KnowledgeTree document in Office.'] = '{i18n}View/edit another KnowledgeTree document in Office.{/i18n}';
+
+i18n['Revert'] = '{i18n}Revert{/i18n}';
+
+i18n['Closes the currently open document in Office and opens the currently stored version from KnowledgeTree in Office. Any changes you make to the document may be saved only to the local copy, or add the edited document to KnowledgeTree as a new document.'] = '{i18n}Closes the currently open document in Office and opens the currently stored version from KnowledgeTree in Office. Any changes you make to the document may be saved only to the local copy, or add the edited document to KnowledgeTree as a new document.{/i18n}';
+
+i18n['Save As'] = '{i18n}Save As{/i18n}';
+
+i18n['Saves a KnowledgeTree document currently open for viewing in Office as a new document in KnowledgeTree.'] = '{i18n}Saves a KnowledgeTree document currently open for viewing in Office as a new document in KnowledgeTree.{/i18n}';
+
+i18n['Start Editing'] = '{i18n}Start Editing{/i18n}';
+
+i18n['Changes the status of a KnowledgeTree document opened for viewing in Office to \'read only\' so that you may edit the document in Office. You must have \'write\' permissions.'] = '{i18n}Changes the status of a KnowledgeTree document opened for viewing in Office to \'read only\' so that you may edit the document in Office. You must have \'write\' permissions.{/i18n}';
+
+i18n['Restores previously saved document properties.'] = '{i18n}Restores previously saved document properties.{/i18n}';
+
+i18n['Save as'] = '{i18n}Save as{/i18n}';
+
+i18n['Saves the document you downloaded from KnowledgeTree as a new document in KnowledgeTree.'] = '{i18n}Saves the document you downloaded from KnowledgeTree as a new document in KnowledgeTree.{/i18n}';
+
+i18n['Closes the currently open document in Office and opens the currently stored version from KnowledgeTree in Office.  Any changes you make to the document may be saved only to the local copy, or add the edited document to KnowledgeTree as a new document.'] = '{i18n}Closes the currently open document in Office and opens the currently stored version from KnowledgeTree in Office.  Any changes you make to the document may be saved only to the local copy, or add the edited document to KnowledgeTree as a new document.{/i18n}';
+
+i18n['Opens a new instance of Microsoft Office and KnowledgeTree Office Add-in, where you can view / edit another KnowledgeTree document in Office.'] = '{i18n}Opens a new instance of Microsoft Office and KnowledgeTree Office Add-in, where you can view / edit another KnowledgeTree document in Office.{/i18n}';
+
+i18n['Adds your open Office document to KnowledgeTree, and closes the document in Office. You must have \'write\' permissions on the folder.'] = '{i18n}Adds your open Office document to KnowledgeTree, and closes the document in Office. You must have \'write\' permissions on the folder.{/i18n}';
+
+i18n['Closes the document currently open in Office. Any changes you made to the document are not saved to KnowledgeTree.'] = '{i18n}Closes the document currently open in Office. Any changes you made to the document are not saved to KnowledgeTree.{/i18n}';
+
+i18n['Loading'] = '{i18n}Loading{/i18n}';
+
+//strings for file: classes/modalFeedbackPanel.js
+
+i18n['Send'] = '{i18n}Send{/i18n}';
+
+i18n['Error has been submitted. Thank you!'] = '{i18n}Error has been submitted. Thank you!{/i18n}';
+
+i18n['Copy to clipboard'] = '{i18n}Copy to clipboard{/i18n}';
+
+i18n['All error reports are submitted anonymously.\r\n\r\nTo help us resolve this error, please use this comment box to provide a brief description of the task you were performing when this error occurred.'] = '{i18n}All error reports are submitted anonymously.\r\n\r\nTo help us resolve this error, please use this comment box to provide a brief description of the task you were performing when this error occurred.{/i18n}';
+
+//strings for file: classes/progressWindow.js
+
+//strings for file: classes/propertiesEnum.js
+
+//strings for file: classes/propertiesPanel.js
+
+i18n['Viewing'] = '{i18n}Viewing{/i18n}';
+
+i18n['Document type could not be changed'] = '{i18n}Document type could not be changed{/i18n}';
+
+i18n['Document type could not be reset'] = '{i18n}Document type could not be reset{/i18n}';
+
+i18n['Select...'] = '{i18n}Select...{/i18n}';
+
+i18n['Double-click to Select'] = '{i18n}Double-click to Select{/i18n}';
+
+i18n['Double-click to Edit'] = '{i18n}Double-click to Edit{/i18n}';
+
+i18n['Please complete all required fields.'] = '{i18n}Please complete all required fields.{/i18n}';
+
+i18n['Editing'] = '{i18n}Editing{/i18n}';
+
+i18n['File Type'] = '{i18n}File Type{/i18n}';
+
+i18n['Type'] = '{i18n}Type{/i18n}';
+
+i18n['Some fields are required'] = '{i18n}Some fields are required{/i18n}';
+
+//strings for file: classes/runAction.js
+
+//strings for file: classes/savePanel.js
+
+i18n['Title'] = '{i18n}Title{/i18n}';
+
+i18n['Click to enter'] = '{i18n}Click to enter{/i18n}';
+
+i18n['Default'] = '{i18n}Default{/i18n}';
+
+i18n['Select a document type'] = '{i18n}Select a document type{/i18n}';
+
+i18n['Click to select'] = '{i18n}Click to select{/i18n}';
+
+i18n['A document with the same title already exists in the target folder'] = '{i18n}A document with the same title already exists in the target folder{/i18n}';
+
+i18n['A document with the same title already exists in the folder.'] = '{i18n}A document with the same title already exists in the folder.{/i18n}';
+
+i18n['Your document was not saved to the server'] = '{i18n}Your document was not saved to the server{/i18n}';
+
+//strings for file: classes/searchPanel.js
+
+i18n['No text entered'] = '{i18n}No text entered{/i18n}';
+
+i18n['You need to enter text to be searched'] = '{i18n}You need to enter text to be searched{/i18n}';
+
+//strings for file: classes/serverWindow.js
+
+//strings for file: classes/toolTips.js
+
+//strings for file: classes/topPanel.js
+
+i18n['Logout'] = '{i18n}Logout{/i18n}';
+
+//strings for file: classes/treePanel.js
+
+i18n['No Read permissions'] = '{i18n}No Read permissions{/i18n}';
+
+i18n['You do not have the required permissions to view the root folder. Please contact your system administrator for assistance.'] = '{i18n}You do not have the required permissions to view the root folder. Please contact your system administrator for assistance.{/i18n}';
+
+i18n['Search for documents'] = '{i18n}Search for documents{/i18n}';
+
+// Total Language Strings: 155
+
+// Unique Strings: 155

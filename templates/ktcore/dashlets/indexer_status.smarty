@@ -1,0 +1,44 @@
+{if $no_transforms}
+<div class="ktError">
+	<div class="error_dashlet_rightrepeat_bottom"></div>
+	<div class="error_dashlet_leftrepeat_bottom"></div>
+	<p><strong>{i18n}Warning{/i18n}:</strong>  {i18n}There are currently no active indexers registered.  No content indexing will occur.{/i18n}</p>
+	<div class="error_dashlet_topleft_small"></div>
+    <div class="error_dashlet_toprepeat_small"></div>
+	<div class="error_dashlet_topright_small"></div>
+	
+	<div class="error_dashlet_bottomleft"></div>
+    <div class="error_dashlet_bottomrepeat_small"></div>
+	<div class="error_dashlet_bottomright"></div>
+</div>
+{else}
+{if empty($transforms)} 
+<div class="ktInfoMessage">
+	<span>{i18n}All indexers claim to be working correctly.{/i18n}</span>
+</div>
+{else}
+<table class="kt_collection">
+<thead>
+    <tr>
+        <th>{i18n}Mime Types{/i18n}</th>
+        <th>{i18n}Diagnostic{/i18n}</th>
+    </tr>
+</thead>
+<tbody>
+    {foreach item=aRow from=$transforms}
+    <tr class="browse_column {cycle values=odd,even}">
+        <td><p>
+            {foreach key=mimetype item=v from=$aRow.types name=mimetype}
+            {$mimetype} {if (!$smarty.foreach.mimetype.last)}<br />{/if}
+            {/foreach}
+            </p>
+        </td>
+        <td class="title">
+        <p class="descriptiveText">{if empty($aRow.diagnostic)}{i18n}No indicated problem.{/i18n} {else}{$aRow.diagnostic}{/if}</p>
+       </td>
+    </tr>
+    {/foreach}
+</tbody>
+</table>
+{/if}
+{/if}

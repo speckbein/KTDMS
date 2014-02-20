@@ -1,0 +1,5 @@
+<itemList>
+{ foreach from=$values key=id item=label }
+    <item value="{$id}" label="{$label}"/>
+{/foreach}
+</itemList>

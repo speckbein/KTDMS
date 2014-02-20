@@ -1,0 +1,50 @@
+<p>
+{i18n}Creating zip file. Compressing and archiving in progress ...{/i18n}
+</p>
+<p style='margin-bottom: 10px;'>
+<br /><b>{i18n}Warning! Please wait for archiving to complete before closing the page.{/i18n} </b>
+<br />{i18n}Note: Closing the page before the download link displays will cancel your Bulk Download.{/i18n}
+</p>
+
+
+<div id='download_link' style='visibility: hidden'>
+<p style='margin-bottom: 5px;'>
+<a href="{$download_url}">{i18n}Download Zipped File{/i18n}</a>
+</p>
+<p style='margin-bottom: 10px;'>
+<a href="{$folder_url}">{i18n}Return to Folder{/i18n}</a>
+<br />
+</p>
+</div>
+
+
+<script type='text/javascript'>
+{literal}
+function ping()
+{
+    Ext.Ajax.request({
+        url: {/literal}'{$url}'{literal},
+        success: function(response) {
+            if(response.responseText == 'wait'){
+                setTimeout("ping()", 2000);
+                return;
+            }
+
+            var div = document.getElementById('download_link');
+            div.style.visibility = 'visible';
+            div.innerHTML = div.innerHTML + response.responseText;
+        },
+        failure: function(response) {
+            alert({/literal}{i18n}'There was an error connecting to the server. Please refresh the page.'{/i18n}{literal});
+        },
+        params: {
+            ping: 'ping',
+            code: {/literal}'{$code}'{literal}
+        }
+    });
+
+}
+{/literal}
+
+ping();
+</script>

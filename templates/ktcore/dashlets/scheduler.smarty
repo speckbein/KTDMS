@@ -1,0 +1,54 @@
+
+<span class="descriptiveText">{i18n  arg_link=$sAdminLink}The scheduler takes care of managing and running tasks or batch jobs at regular intervals in the background. These tasks can be configured via the #link#.{/i18n}</span>
+
+<p>
+{if $lasttime}
+    <span class=''>{i18n  arg_time=$lasttime}The last time these tasks were performed was on #time#.{/i18n}</span>
+{else}
+    <span class=''>{i18n}No tasks have been run yet.{/i18n}</span>
+{/if}
+</p>
+
+<p>
+{if !$lasttime}
+    {if $isDue}
+        <span class=''>{i18n  arg_time=$timedif}The tasks were scheduled to be run #time# ago.{/i18n}</span>
+    {else}
+        <span class=''>{i18n  arg_time=$timedif}The tasks are scheduled to be run in #time#.{/i18n}</span>
+    {/if}
+{/if}
+</p>
+
+
+{if $bWin}
+    <p>
+    {i18n}Note: The stack install uses its own service for task scheduling. To check if this service has been installed and is running, open the <i>Control Panel</i>, go to
+    <i>Administrative Tools</i> and open the list of <i>Services</i>. The scheduler service is called <i>KTScheduler</i>. For further information on this service,
+    please refer to the documentation.{/i18n}
+
+{else}
+    <p>
+    {i18n}Note: The stack install uses its own service for task scheduling and the following is only for source installs.{/i18n}<br>
+    {i18n}Please ensure that the scheduler is listed in your cron jobs. The line to be added to the crontab to implement the cron job is: {/i18n}
+    <ul><li>*/5 * * * * {$sPath} > /dev/null</li></ul>
+    </p>
+
+    <p>
+    <span onclick="{$onClick}">
+        <img id="scheduler_icon" src="{$sImg}"/>
+        <b>{i18n}Guide to using cron:{/i18n}</b></span>
+    <div id="cronguide" style="display: none; visibility: hidden;">
+    <ul>
+        <li>{i18n}View jobs in the crontab:{/i18n} crontab -l</li>
+        <li>{i18n}Edit the crontab:{/i18n} crontab -e
+        <ol><li>{i18n}Press 'o' to start a new line.{/i18n}</li>
+            <li>{i18n}Press 'i' to edit a line.{/i18n}</li>
+            <li>{i18n}Press the 'esc' key to exit the edit mode.{/i18n}</li>
+            <li>{i18n}Type ZZ to save changes and exit.{/i18n}</li>
+            <li>{i18n}Type :q! to exit without saving.{/i18n}</li>
+        </ol>
+    </ul>
+    </div>
+    </p>
+
+{/if}

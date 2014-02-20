@@ -1,0 +1,85 @@
+{literal}
+<script type="text/javascript">
+	function nextSearchPage(value)
+	{
+		var hiddenPageVal = document.getElementById("pageValue");
+		hiddenPageVal.value = value;
+		document.pendingQueueForm.submit();
+	}
+</script>
+{/literal}
+<h2>{i18n}Pending Documents Indexing Queue{/i18n}</h2>
+<p class="descriptiveText">{i18n}This report lists documents that are waiting to be indexed.{/i18n}</p>
+<br>
+{i18n}If a document is not associated with an extractor, no content will be added to the index. These documents can be identified in the list by the extractor column reflecting n/a.{/i18n}
+<br><br>
+
+{if empty($pending_docs)}
+
+<b>{i18n}There are no documents in the indexing queue.{/i18n}</b>
+
+{else}
+
+
+<form name="pendingQueueForm" action="{$smarty.server.PHP_SELF}" method="POST">
+<input type="hidden" name="pageValue" id="pageValue" value="" />
+
+<table class=kt_collection>
+
+<thead>
+<tr>
+	<th>{i18n}Filename{/i18n}</th>
+	<th width="100">{i18n}Extractor{/i18n}</th>
+	<th width="100">{i18n}Index Date{/i18n}</th>
+</tr>
+</thead>
+
+<tbody>
+
+{foreach key=key from=$pending_docs item=pendingDocs}
+<tr>
+    <td><a href="{$root_url}/view.php?fDocumentId={$pendingDocs.document_id}">{$pendingDocs.filename|mb_truncate:50:'...':true}</a></td>
+	<td>{if $pendingDocs.extractor}{$pendingDocs.extractor}{else}<p><font color="#FF9933">{i18n}n/a{/i18n}</font></p>{/if}</td>
+	<td>{$pendingDocs.indexdate}</td>
+</tr>
+{/foreach}
+
+</tbody>
+
+<tfoot>
+    <tr>
+        <td colspan="3">
+        <div align="center">
+        {foreach item=page from=$pageList}
+            {if $pageNum == $page}
+                {$page}&nbsp;
+            {else}
+                <a id="pageButton{$page}" href="#" onclick="nextSearchPage({$page});">{$page}</a>&nbsp;
+            {/if}
+        {/foreach}
+        </div>
+        </td>
+    </tr>
+        <tr>
+        <td  colspan="2">
+            <div> {$itemCount} {i18n}items{/i18n},
+                {$itemsPerPage} {i18n}items per page{/i18n}.
+            </div>
+        </td>
+        <td align="right">
+                <select name="itemsPerPage">
+                    <option value='10' {if $itemsPerPage == 10}selected='true'{/if} onclick="nextSearchPage({$pageNum});" >10</option>
+                    <option value='20' {if $itemsPerPage == 20}selected='true'{/if} onclick="nextSearchPage({$pageNum});">20</option>
+                    <option value='50' {if $itemsPerPage == 50}selected='true'{/if} onclick="nextSearchPage({$pageNum});">50</option>
+                    <option value='100' {if $itemsPerPage == 100}selected='true'{/if} onclick="nextSearchPage({$pageNum});">100</option>
+                </select>
+                {i18n}items per page{/i18n}
+        </td>
+    </tr>
+</tfoot>
+
+</table>
+
+</form>
+
+{/if}

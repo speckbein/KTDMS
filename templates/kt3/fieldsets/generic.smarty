@@ -1,0 +1,64 @@
+<div class="detail_fieldset">
+    <h3>{i18n}Generic Information{/i18n}</h3>
+    <p class="descriptiveText">
+        {i18n arg_appname="$appname"}The information in this section is stored by #appname# for every
+        document.{/i18n}
+    </p>
+
+    <table class="metadatatable" cellspacing="0" cellpadding="5">
+    <tr class="even first">
+        <th>{i18n}Document Filename{/i18n}</th>
+        <td>{$filename|wordwrap:40:"\n":false|sanitize_input} ({$context->_sizeHelper($document->getSize())})</td>
+    </tr>
+
+    <tr class="odd">
+        <th>{i18n}File is a{/i18n}</th>
+        <td>{$context->_mimeHelper($document->getMimeTypeID())}</td>
+    </tr>
+
+    <tr class="even">
+        <th>{i18n}Document Version{/i18n}</th>
+        <td>{$document->getMajorVersionNumber()}.{$document->getMinorVersionNumber()}</td>
+    </tr>
+
+    <tr class="odd">
+        <th>{i18n}Created by{/i18n}</th>
+        <td>{$creator} ({$creation_date})</td>
+    </tr>
+
+    <tr class="even">
+        <th>{i18n}Owned by{/i18n}</th>
+        <td>{$owner}</td>
+    </tr>
+
+    <tr class="odd">
+        <th>{i18n}Last update by{/i18n}</th>
+        <td>{$last_modified_by} ({$last_modified_date})</td>
+    </tr>
+
+    <tr class="even">
+        <th>{i18n}Document Type{/i18n}</th>
+        <td>{$document_type}</td>
+    </tr>
+
+    <tr class="odd">
+        <th>{i18n}Workflow{/i18n}</th>
+        <td>
+        {if $workflow}
+            {$workflow->getName()}:
+            {if $workflow_state}
+                {$workflow_state->getName()}
+            {/if}
+        {else}
+            {i18n}No workflow{/i18n}
+        {/if}
+        </td>
+    </tr>
+
+    <tr class="even">
+        <th>{i18n}Document ID{/i18n}</th>
+        <td>{$document->getId()}</td>
+    </tr>
+
+    </table>
+</div>

@@ -1,0 +1,276 @@
+{$context->oPage->requireJSResource('resources/js/toggleselect.js')}
+
+<div class="collapsible">
+<h4 onclick="toggleElementClass('expanded', this.parentNode)">{i18n}Search Criteria{/i18n}</h4>
+<div class="collapsiblebody">
+<fieldset>
+	<legend>{i18n}Search Criteria{/i18n}</legend>
+	{$txtQuery}
+	<br>
+{if empty($iSavedID)}
+	{capture assign=options}
+    	<a href="{addQS}action=queryBuilder{/addQS}">{i18n}Search Criteria Editor{/i18n}</a>
+    {/capture}
+	{i18n arg_options=$options}Use the #options# to extend your search criteria.{/i18n}
+{/if}
+{if !$search2_anonymous && !empty($iSavedID)}
+	{capture assign=options}
+    	<a href="{addQS}action=queryBuilder&fSavedSearchId={$iSavedID}{/addQS}">Query Editor</a>
+    {/capture}
+	{i18n arg_options=$options}To edit the search criteria, use the #options#.{/i18n}
+{/if}
+	<font color=brown><div id="savedSearch" style="display: none">{i18n}The search criteria has been saved.{/i18n}</div></font>
+</fieldset>
+<br>
+{if !$search2_anonymous && !empty($iSavedID)}
+<fieldset>
+	<legend>{i18n}Saved Search{/i18n}</legend>
+	{i18n}This is the saved search criteria:{/i18n} {$txtSavedName}. <br/>
+	{capture assign=options}
+    	<a href="{addQS}action=manage{/addQS}">{i18n}Manage Saved Search Criteria{/i18n}</a>
+    {/capture}
+	{i18n arg_options=$options}To delete this saved search criteria or to edit other saved search criteria, #options#.{/i18n}
+</fieldset>
+{/if}
+{literal}
+<script language="javascript">
+function saveSearch()
+{
+	var txtName = $('txtSaveName');
+	var text = txtName.value.trim();
+	var txtQuery = '{/literal}{$txtQuery|escape:'quotes'}{literal}';
+	if (text == '')
+	{
+		alert("{/literal}{i18n}Please enter a name for the search expression.{/i18n}{literal}");
+		txtName.focus();
+		return;
+	}
+	url='{/literal}{$rootUrl}{literal}/search2/ajax/saveExpr.php';
+
+	Ext.Ajax.request(
+	{
+	    url: url,
+	    method: 'GET',
+	    success: function callBack(o)
+	    {
+	        if (o.responseText != '{}')
+	        {
+	            var resp = eval('(' + o.responseText + ')');
+
+	            if (resp.status == 0)
+	            {
+	                parseSuccess = true;
+	                $('saveSearch').style.display='none';
+	                $('savedSearch').style.display='block';
+	            }
+	            else
+	            {
+	                alert("{/literal}{i18n}There is a problem saving the expression expression.{/i18n}{literal}\n\n" + resp.message );
+	            }
+	        }
+	    },
+	    failure: function(o)
+	    {
+	        alert("{/literal}{i18n}There is a problem communicating with the server.{/i18n}{literal}" +  o.responseText);
+	    },
+	    params: {
+	        txtName: text,
+	        txtQuery: txtQuery
+	    }
+	});
+}
+
+function onSelectAll()
+{
+	var cbSelectAll = $('cbSelectAll');
+
+	for(var i={/literal}{$firstRec}{literal};i<{/literal}{$lastRec}{literal};i++)
+	{
+		var cb = $('cb' + i);
+
+		cb.checked = cbSelectAll.checked;
+	}
+}
+
+function onShowAll(showall)
+{
+	url = "{/literal}{addQS}{literal}action=searchResults&pageOffset={/literal}{$pageOffset}{literal}&showAll=" + showall + "{/literal}{/addQS}{literal}";
+
+	document.location = url;
+}
+
+</script>
+{/literal}
+</div>
+</div>
+{if !$search2_anonymous && empty($iSavedID)}
+<div id="saveSearch">
+<fieldset>
+	<legend>{i18n}You can save this search:{/i18n}</legend>
+	<input id=txtSaveName>
+	<input type=button value="{i18n}Save{/i18n}" onclick="saveSearch()">
+</fieldset>
+</div>
+{/if}
+
+
+<fieldset>
+
+<legend>{i18n}Search Results{/i18n}</legend>
+
+{if $numResults == 0}
+
+	{i18n}There are no search results matching your search criteria.{/i18n}
+
+	<p>
+	{capture assign=options}
+		<a href="{addQS}action=queryBuilder{/addQS}">{i18n}Search Criteria Editor{/i18n}</a>
+	{/capture}
+
+	{i18n arg_options=$options}Use the #options# to extend this query.{/i18n}
+
+{else}
+
+	<form method=post action="{$rootUrl}/search2.php?action=searchResults">
+
+    <select name='display_order' onChange="submit();">
+        <option value='f' {$selected_order.f}>Show folders first</option>
+        <option value='d' {$selected_order.d}>Show documents first</option>
+        <option value='s' {$selected_order.s}>Show shortcuts first</option>
+    </select>
+
+    </form>
+    <br /><br />
+
+	<form method=post action="{$rootUrl}/action.php">
+	<table border=0 cellpadding="1" cellspacing="1" width="100%" align=center>
+	{assign var=cbid value=0}
+
+	{i18n arg_count=$numResults}Search results found: #count#{/i18n}
+    <br/>
+    <br/>
+
+	{foreach item=hit from=$results}
+		<tr><td>
+		<input type="checkbox" {if $hit->IsDocument}name="selection_d[]"{else}name="selection_f[]"{/if} id="cb{$cbid}" value="{$hit->Id}"><nobr>
+	    <span class="contenttype {$hit->MimeIconPath}">
+
+		{if $hit->IsDocument}
+			&nbsp;&nbsp;<a href="{$rootUrl}/view.php?fDocumentId={$hit->Id}" title="{$hit->Title}"><B>{$hit->Title|mb_truncate:80:'...':true}</b></a>
+			{if $hit->Title != $hit->Filename}
+				<br/>
+				<font style=" color: green ">{i18n}Filename:{/i18n} {$hit->Filename|mb_truncate:80:'...':true}</font>
+			{/if}
+			{if $hit->IsAvailable}
+		    	&nbsp;&nbsp;
+            	<img src="{$rootUrl}/resources/graphics/download.png" title="Download Document" onclick="document.location='{$rootUrl}/action.php?kt_path_info=ktcore.actions.document.view&fDocumentId={$hit->Id}';"></a>
+			{/if}
+
+
+			{if !$hit->IsAvailable}
+				&nbsp;&nbsp;
+				<font style=" color: red "><B> * {i18n}NOT AVAILABLE{/i18n} * </B></font>
+			{/if}
+
+		{else}
+			&nbsp;&nbsp;<a href="{$rootUrl}/browse.php?fFolderId={$hit->RealId}{if $hit->IsProxy}&fShortcutFolder={$hit->parentId}{/if}"><B>{$hit->Title|mb_truncate:30:'...':true}</b></a>
+
+        {/if}
+
+		</nobr>
+		</td><td align=right>
+		    {if $hit->IsDocument}
+			     <font style="color: green ">{i18n}Document ID:{/i18n} {$hit->Id}</font>
+			     &nbsp;&nbsp;
+			     <font style=" color: orange ">{i18n}Version:{/i18n} {$hit->Version}</font></td>
+		    {else}
+			     <font style="color: green ">{i18n}Folder ID:{/i18n} {$hit->Id}</font>
+		    {/if}
+		</tr>
+		<tr><td colspan=2>{$hit->Text}</td></tr>
+		<tr><td>
+		{if $hit->IsDocument}
+		      <font style=" color: green "><a href="{$rootUrl}/browse.php?fFolderId={$hit->FolderId}" tag="{$hit->FullPath}">{$hit->FullPath|mb_truncate:30:'...':true}</a>/{$hit->Title|mb_truncate:30:'...':true} - {$hit->Filesize}</font>
+		{else}
+		      <font style=" color: green "><a href="{$rootUrl}/browse.php?{if $hit->IsProxy}fFolderId={$hit->linkedId}&fShortcutFolder={$hit->parentId}{else}fFolderId={$hit->FolderId}{/if}" tag="{if $hit->IsProxy}{$hit-full_path}{else}{$hit->FullPath}{/if}">{if $hit->IsProxy}/{$hit->full_path|mb_truncate:30:'...':true}{else}{$hit->FullPath|mb_truncate:30:'...':true}{/if}</a></font>
+		{/if}
+		</td>
+			<td align=right><nobr>
+				<font style="color: orange ">
+				{i18n}Created By:{/i18n} {$hit->CreatedBy}
+				{if $hit->IsDocument}
+				{i18n}on{/i18n} {$hit->DateCreated}
+				{/if}
+				</font>
+				</nobr>
+			</td>
+	    {if $hit->IsDocument}
+		<tr><td>
+			{if $workflow != ''}
+				<font style="color: orange ">{i18n}Workflow:{/i18n} $hit->Workflow}</font>
+			{/if}
+			</td>
+			<td align=right><nobr>
+				<font style="color: brown ">
+				{if $hit->CheckedOutUser != ''}
+					<b>{i18n}Checked out by:{/i18n} {$hit->CheckedOutUser}
+					{i18n}on{/i18n} {$hit->DateCheckedOut}</b>
+				{else}
+					{i18n}Modified by:{/i18n} {$hit->ModifiedBy}
+					{i18n}on{/i18n} {$hit->DateModified}
+				{/if}
+				</font>
+				</nobr>
+			</td>
+		{/if}
+
+		<tr><td colspan=2><br></br></td></tr></tr>
+
+		{assign var=cbid value=$cbid+1}
+	{/foreach}
+
+	<tr><td>
+		<input type="checkbox" id="cbSelectAll" onclick="onSelectAll()">&nbsp;&nbsp;{i18n}Select All{/i18n}
+		{if $showAll}
+			<input type="checkbox"  onclick="onShowAll('false')" checked>&nbsp;&nbsp;{i18n}Show All{/i18n}
+		{/if}
+		{if !$showAll}
+			<input type="checkbox"  onclick="onShowAll('true')">&nbsp;&nbsp;{i18n}Show All{/i18n}
+		{/if}
+		<br>
+  		<input type="hidden" name="fFolderId" value="1" />
+  		<input type="hidden" name="sListCode" value="" />
+  		<input type="hidden" name="action" value="bulkaction" />
+  		<input type="hidden" name="fReturnAction" value="search2" />
+  		<input type="hidden" name="fReturnData" value="1" />
+
+  		<nobr>
+  		{foreach from=$bulkactions item=bulkaction}
+      		<input type="submit" name="submit[{$bulkaction->getName()}]" value="{$bulkaction->getDisplayName()}" />
+		{/foreach}
+  		</nobr>
+</table>
+</form>
+
+{/if}
+
+
+</fieldset>
+
+{if $endMovement - $startMovement > 0}
+<br>
+<br>
+<table align="center">
+<tr>
+	{foreach item=move from=$pageMovement}
+		{if $move == $startMovement}
+			<td></td>
+		{/if}
+			<td><a href="{$rootUrl}/search2.php?action=searchResults&pageOffset={$move}">{$move}</a></td>
+		{if $move == $endMovement}
+			<td></td>
+		{/if}
+	{/foreach}
+</tr>
+</table>
+{/if}

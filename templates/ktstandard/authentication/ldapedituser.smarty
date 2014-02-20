@@ -1,0 +1,11 @@
+<form action="{$smarty.server.PHP_SELF}" method="POST">
+<input type="hidden" name="action" value="editUserSource" />
+<input type="hidden" name="user_id" value="{$user->getId()}" />
+<input type="hidden" name="dn" value="{$dn}" />
+{foreach from=$fields item=oWidget}
+  {$oWidget->render()}
+{/foreach}
+<div class="form_actions ">
+  <input type="submit" name="submit[save]" value="{i18n}Save{/i18n}" />
+</div>
+</form>

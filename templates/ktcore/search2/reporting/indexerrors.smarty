@@ -1,0 +1,96 @@
+{literal}
+<script type="text/javascript">
+	function doReschedule(rescheduleAction)
+	{
+		var hiddenVal = document.getElementById("rescheduleValue");
+		hiddenVal.value = rescheduleAction;
+		document.scheduleForm.submit();
+	}
+	function nextSearchPage(value)
+	{
+		var hiddenPageVal = document.getElementById("pageValue");
+		hiddenPageVal.value = value;
+		document.scheduleForm.submit();
+	}
+</script>
+{/literal}
+
+<h2>{i18n}Document Indexing Diagnostics{/i18n}</h2>
+<p class="descriptiveText">{i18n}This report will help to diagnose problems with document indexing.{/i18n}</p>
+
+<br>
+{if $indexErrors}
+
+<form name="scheduleForm" action="{$smarty.server.PHP_SELF}" method="POST">
+<input type="hidden" name="rescheduleValue" id="rescheduleValue" value="" />
+<input type="hidden" name="pageValue" id="pageValue" value="" />
+
+<table class=kt_collection>
+<thead>
+	<tr>
+		<th width="10"></th>
+
+		<th ><nobr>{i18n}Filename{/i18n}</th>
+		<th width="100"><nobr>{i18n}Extractor{/i18n}</th>
+		<th width="100"><nobr>{i18n}Index Date{/i18n}</th>
+	</tr>
+</thead>
+
+<tbody>
+{foreach key=key from=$indexErrors item=indexError}
+<tr>
+	<td class="centered"><input type="checkbox" name="index_error[{$indexError.document_id}]" value="1"/></td>
+	<td><a href="{$root_url}/view.php?fDocumentId={$indexError.document_id}">{$indexError.filename|truncate:40:'...'}</a></td>
+	<td>{if $indexError.extractor}{$indexError.extractor}{else}<p><font color="#FF9933">{i18n}n/a{/i18n}</font></p>{/if}</td>
+	<td>{$indexError.indexdate}</td>
+
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td colspan="4"><pre>{$indexError.status_msg}</pre></td>
+</tr>
+
+
+{/foreach}
+
+</tbody>
+<tfoot>
+<tr>
+<td colspan="4">
+    <div align="center">
+        {foreach item=page from=$pageList}
+            {if $pageNum == $page}
+                {$page}&nbsp;
+            {else}
+                <a id="pageButton{$page}" href="#" onclick="nextSearchPage({$page});">{$page}</a>&nbsp;
+            {/if}
+        {/foreach}
+    </div>
+</td>
+</tr>
+    <tr>
+        <td  colspan="2">
+        <div> {$itemCount} {i18n}items{/i18n}, {$itemsPerPage} {i18n}items per page{/i18n}.</div>
+        </td>
+        <td align="right">
+                <select name="itemsPerPage">
+                    <option value='10' {if $itemsPerPage == 10}selected='true'{/if} onclick="nextSearchPage({$pageNum});" >10</option>
+                    <option value='20' {if $itemsPerPage == 20}selected='true'{/if} onclick="nextSearchPage({$pageNum});">20</option>
+                    <option value='50' {if $itemsPerPage == 50}selected='true'{/if} onclick="nextSearchPage({$pageNum});">50</option>
+                    <option value='100' {if $itemsPerPage == 100}selected='true'{/if} onclick="nextSearchPage({$pageNum});">100</option>
+                </select>
+                {i18n}items per page{/i18n}
+        </td>
+    </tr>
+</tfoot>
+</table>
+
+<br>
+<input type="button" name="Reschedule" value="{i18n}Reschedule{/i18n}" onclick="doReschedule('reschedule');"/>
+<input type="button" name="Reschedule All" value="{i18n}Reschedule All{/i18n}" onclick="doReschedule('rescheduleall');"/>
+<input type="button" name="Remove" value="{i18n}Remove{/i18n}" onclick="doReschedule('remove');"/>
+<input type="button" name="Remove All" value="{i18n}Remove All{/i18n}" onclick="doReschedule('removeall');"/>
+{else}
+<h3>{i18n}There are no indexing issues.{/i18n}</h3>
+{/if}
+</form>

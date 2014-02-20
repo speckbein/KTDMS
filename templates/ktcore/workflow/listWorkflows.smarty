@@ -1,0 +1,63 @@
+<h2>{i18n}Workflows{/i18n}</h2>
+
+<p class="descriptiveText">{i18n}Workflow is a description of a document's lifecycle.  It is made up of
+workflow states, which describe where in the lifecycle the document is,
+and workflow transitions, which describe the next steps within the
+lifecycle of the document.{/i18n}</p>
+
+<form action="{$smarty.server.PHP_SELF}" method="POST">
+<fieldset>
+<legend>{i18n}Create a new workflow{/i18n}</legend>
+
+<input type="hidden" name="action" value="newWorkflow" />
+
+
+{foreach item=oWidget from=$add_fields}
+  {$oWidget->render()}
+{/foreach}
+
+<div class="form_actions">
+  <input type="submit" name="submit" value="{i18n}Create{/i18n}" />
+</div>
+</fieldset>
+</form>
+
+
+{if $aWorkflow}
+<h3>{i18n}Existing workflows{/i18n}</h3>
+<p class="descriptiveText">{i18n}Select a workflow to modify. To enable a disabled workflow, edit it and set a proper starting state.{/i18n}</p>
+
+<table class="listing" style="width:auto">
+
+  <thead>
+    <tr>
+      <th>{i18n}Name{/i18n}</th>
+      <th>{i18n}Status{/i18n}</th>
+      <th>{i18n}Edit{/i18n}</th>
+      <th>&nbsp</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+  
+{foreach from=$aWorkflow item=oWorkflow}
+{assign var="startId" value=$oWorkflow->getStartStateId()}
+
+    <tr>
+      <td>{$oWorkflow->getName()}</td>
+      <td>{if $startId===NULL}{* need spaces, or smarty generates broken code *} {i18n}Disabled{/i18n} {else} {i18n}Enabled{/i18n} {/if}</td>
+      <td><a class="ktAction ktEdit" href="{addQS}action=editWorkflow&fWorkflowId={$oWorkflow->getId()}{/addQS}">{i18n}Edit{/i18n}</a></td>
+      <td>
+        {if $startId!==NULL}<a href="{addQS}action=disableWorkflow&fWorkflowId={$oWorkflow->getId()}{/addQS}">{i18n}Disable{/i18n}</a>
+        {else}&nbsp;{/if}
+      </td>
+    </tr>  
+{/foreach}
+  </tbody>
+</table>
+
+{/if}
+
+
+
+

@@ -1,0 +1,91 @@
+<html>
+<head>
+   <title>Document Actions</title>
+</head>
+<body>
+<h2>Document Info menu</h2>
+
+<h3>Display Details </h3>
+
+Displays information about a currently selected document; e.g. filename, custom document number, file type, document version, created by, owned by, last update by, document type, workflow, document id, tags, category, author, media type, associated fieldsets, fields, field values
+<br /><br />
+<h3>Download</h3>
+Downloads a copy of the current document without checking it out of the document management system. You can open the document to view it and/or save it to your local computer. 
+<br /><br />
+<h3>Permissions</h3>
+Displays the current permissions setup on the document.
+<br /><br />
+<h3>Transaction History</h3>
+Displays a transaction history on the currently selected document, and includes a record of all transactions performed on the document.
+<br /><br />
+<h3>Version History</h3>
+Displays a record of past content versions and past metadata versions of a currently selected document, and allows you to compare versions.
+<br /><br />
+<h3>View Roles</h3>
+Displays current role allocations on the selected document.
+<br /><br />
+
+<h2>Document Actions menu</h2>
+<h3>Archive</h3>
+Archives a currently selected document and renders the document invisible to non-administrative users. Only administrative users are allowed to restore archived documents. Archiving clears space in the repository in order to speed up search and document viewing. 
+<br /><br />
+<h3>Change Document Ownership</h3>
+Changes the document ownership. The new user becomes the document 'owner'. Note that changing the document owner may restrict access to the document if the new owner does not have the correct permissions on the document.
+<br /><br />
+<h3>Check-out</h3>
+Checks the document out of the document management system, updates the transaction history, locks the document against check out and editing by other users, and downloads the document to your local computer, where you can edit the document before checking it back in to KnowledgeTree.
+<br /><br />
+<h3>Cancel Checkout</h3>
+Displays only if you have the current document checked out. This action overrides the document's checked out status. The pre-checkout version of the document is restored to the document management system. To add any changes you made to your local copy of the document you will have to check it out again, add your changes, and check the document back in.
+<br /><br />
+<h3>Check-in</h3>
+Displays only if you have the current document checked out. This action allows you to update the current document with the changes you made to your local, checked out copy, and increments the version by 0.1 on check-in.
+<br /><br />
+<h3>Copy</h3>
+Copies the currently selected document to another location in the repository.
+<br /><br />
+<h3>Delete</h3>
+Moves a document out of the folder hierarchy so that it is no longer available to system users. Deleted documents may be restored or expunged by the KnowledgeTree administrator. 
+<br /><br />
+<h3>Discussion</h3>
+Displays discussion threads on the document (if any) and allows you to create new threads, add to existing threads or add a post to an existing thread. Discussions are a low level collaboration tool that provides a forum for users to share their ideas on a document. 
+<br /><br />
+<h3>Edit Metadata</h3>
+Displays existing metadata on the currently selected document and allows you to edit the document's generic metadata. 
+<br /><br />
+<h3>Email</h3>
+Allows you to send an email message to one or more KnowledgeTree users or groups, and provides a link to the currently selected document. 
+<br /><br />
+<h3>Generate PDF</h3>
+Converts a currently selected document to PDF format. To view the file you need to have a PDF Reader installed. KnowledgeTree supports PDF conversion for the following file formats: doc, ods, odt, ott, txt, rtf, sxw, stw, xml, pdb, psw, ods, ots, sxc, stc, dif, dbf, xls, xlt, slk, csv, pxl, odp, otp, sxi, sti, ppt, pot, sxd, odg,  otg, std, asc
+This action displays only when the file format of the currently selected document is one of the supported options. 
+By default, the converted PDF is downloaded to your desktop. You may browse to select another location.
+<br /><br />
+<h3>Links</h3>
+Allows you to display or remove existing links and create new links, and to open linked documents on a currently selected document. Document links establish associations between documents in the repository, and link to pages or sites on the Internet. Note that when creating document link types, the administrator specifies the type of relationship that the link implies between the linked documents – i.e. ‘associated with’, or ‘duplicated by’. KnowledgeTree ships with the following predefined link types: Attachment, Reference, Copy.
+<br /><br />
+<h3>Make Immutable</h3>
+Locks the currently selected document so that no further content changes can be made to this document, and only administrators (in administration mode) can make changes to the metadata or can move or delete it. If you require assistance from an administrator to perform one of these tasks, use the Request Assistance action.
+<br /><br />
+<h3>Move</h3>
+Moves the currently selected document to another location in the repository. Only users with the read and write permissions on a folder are allowed to move an item to another location in the repository. 
+<br /><br />
+<h3>RSS</h3>
+Generates a link on a currently selected document. You may copy the document link to an external aggregator to create a RSS Feed on the document in the repository. Ensure that your RSS reader is RSS 2.0 compatible.
+<br /><br />
+<h3>Rename</h3>
+Renames the file name of a document, if you have 'write' permissions on the document. This action does not change the document title. It only changes the file name. For example, if you have a jpeg image file in the repository, and you want to change it into a bitmap. This involves renaming the file from filename .jpg to filename .bmp; then, checking out the .jpg file and checking in the bitmap version.
+<br /><br />
+<h3>Request Assistance</h3>
+Sends a request for assistance on a document to the system administrator and the document owner.
+<br /><br />
+<h3>View Inline</h3>
+Displays the content of a document within the document management system so that you can view it inline. Currently (April 2008), the View Inline plugin supports the following file types: png, jpeg, gif, tiff, html, xml, plain text documents
+Future versions of KnowledgeTree may support additional file types. To preview other file types, convert the document to PDF, then download the document to view it. This action displays only when the current document is of a supported file type. 
+<br /><br />
+<h3>Workflow</h3>
+Displays assigned workflows (if any), and allows you to perform transitions on an existing workflow. This action also allows you to start a workflow on a currently selected document (if there is no existing workflow on the document).
+
+
+</body>
+</html>

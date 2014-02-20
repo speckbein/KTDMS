@@ -1,0 +1,87 @@
+{$context->oPage->requireJSResource('thirdpartyjs/MochiKit/MochiKitPacked.js')}
+
+{$context->oPage->requireJSResource('resources/js/toggleselect.js')}
+
+{if ($custom_title != null)}
+<h2>{$custom_title|sanitize}</h2>
+{/if}
+
+
+{if ($params)}
+<div class="collapsible">
+<h4 onclick="toggleElementClass('expanded', this.parentNode)">{i18n}Parameters{/i18n}</h4>
+<div class="collapsiblebody">
+{assign var=mainjoin value=$joins.main}
+
+<p class="descriptiveText">{i18n arg_join=$mainjoin}Match <b>#join#</b> of the following{/i18n}:</p>
+{foreach from=$params key=key item=group}
+{assign var=join value=$joins[$key]}
+
+<b>{i18n}Group{/i18n}</b> ({i18n arg_join=$join}match <b>#join#</b>{/i18n})
+<ul>
+{foreach from=$group item=param}
+<li>{$param}</li>
+{/foreach}
+</ul>
+{/foreach}
+</div>
+</div>
+{/if}
+
+<form action="{$browseutil->getActionBaseUrl()}" method="post">
+
+{if ($isEditable)}
+
+{if ($context->oFolder)}
+<input type="hidden" name="fFolderId" value="{$context->oFolder->getId()}" />
+{/if}
+
+{/if}
+
+{$collection->render()}
+{if ($isEditable)}
+<div class="form_actions">
+  <input type="hidden" name="sListCode" value="{$code}" />
+  <input type="hidden" name="action" value="bulkaction" />
+  <input type="hidden" name="fReturnAction" value="{$returnaction}" />
+  <input type="hidden" name="fReturnData" value="{$returndata|sanitize}" />
+
+  {foreach from=$bulkactions item=bulkaction}
+      <input type="submit" name="submit[{$bulkaction->getName()}]" value="{$bulkaction->getDisplayName()}" />
+  {/foreach}
+
+</div>
+{/if}
+</form>
+
+
+{if ($save_fields)}
+<form action="{$smarty.server.PHP_SELF}" method="post">
+<fieldset>
+<legend>{i18n}Edit search{/i18n}</legend>
+<p class="descriptiveText">{i18n}To modify this search, press the 'Edit' button.{/i18n}</p>
+<input type="hidden" name="action" value="editSearch" />
+<input type="hidden" name="boolean_search" value="{$boolean_search}" />
+<div class="form_actions">
+<input type="submit" name="submit" value="{i18n}Edit{/i18n}" />
+</div>
+</fieldset>
+</form>
+
+<form action="{$smarty.server.PHP_SELF}" method="post">
+<fieldset>
+<legend>{i18n}Save this search{/i18n}</legend>
+<p class="descriptiveText">{i18n}To save this search permanently, so that you can run it again at any time, fill in a name below and click 'Save'.{/i18n}</p>
+<input type="hidden" name="action" value="saveSearch" />
+<input type="hidden" name="boolean_search" value="{$boolean_search|sanitize}" />
+{foreach item=oWidget from=$save_fields}
+    {$oWidget->render()}
+{/foreach}
+<div class="form_actions">
+<input type="submit" name="submit" value="{i18n}Save{/i18n}" />
+</div>
+</fieldset>
+</form>
+{/if}
+
+{* we break encapsulation pretty badly here. *}

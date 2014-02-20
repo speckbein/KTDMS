@@ -1,0 +1,34 @@
+<h2>{i18n arg_name=$group->getName()}Manage Users in #name#{/i18n}</h2>
+
+<p class="descriptiveText">{i18n}Users may be associated with Groups which are then used to grant these users security privileges.{/i18n}</p>
+
+
+<form action="{$smarty.server.PHP_SELF}" method="POST">
+   <input type="hidden" name="action" value="synchroniseGroup" />
+   <input type="hidden" name="group_id" value="{$group->getId()}" />
+   <input type="hidden" name="old_search" value="{$old_search}" />      
+   
+   <fieldset>
+      <legend>{i18n arg_name=$group->getName()}Synchronise Users in #name#{/i18n}</legend>
+	<p class="descriptiveText">{i18n}This group is synchronised from
+	an authentication source, and direct changes can not be made to
+	the members of this group within the document management
+        system.  Select the button below to synchronise the group from
+        the authentication source.{/i18n}</p>
+
+      <div class="form_actions">
+         <input type="submit" value="{i18n}synchronise{/i18n}" />
+      </div>
+   </fieldset>
+</form>
+
+{if $group_users}
+<h3>{i18n}Current users{/i18n}</h3>
+
+<ul>
+{foreach from=$group_users item=user}
+<li>{$user->getName()}</li>
+{/foreach}
+</ul>
+
+{/if}

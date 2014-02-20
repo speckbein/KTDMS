@@ -1,0 +1,3 @@
+{foreach from=$fieldsets item=oFieldset}
+    {$oFieldset->renderEdit($document_data)}
+{/foreach}

@@ -1,0 +1,11 @@
+<h2><img src="{if $config->get("ui/morphEnabled") == '1'}{$rootUrl}/skins/kts_{$config->get("ui/morphTo")}/title_bullet.png{else}{$rootUrl}/resources/graphics/title_bullet.png{/if}"/>{i18n}Checkin Document{/i18n}:<br />{$context->oDocument->getName()|sanitize}</h2>
+
+
+<p class="descriptiveText">{i18n}Checking in a document updates the document
+and allows others to make changes to the document and its metadata.{/i18n}</p>
+
+<p class="descriptiveText">{i18n}If you do not
+intend to change the document, or you do not wish to prevent others from
+changing the document, you should rather use the action menu to <strong>cancel this checkout</strong>.{/i18n}</p>
+
+{$form->render()}

@@ -1,0 +1,23 @@
+<dt class="actionitem subscription">{$info.title|sanitize}</dt>
+<dd class="actionmessage">
+<!-- could break this up. -->
+    {if ($info.has_actor)}
+    {$info.actor_name} {i18n}has added to the discussion around document{/i18n} "{$info.object_name|sanitize}".
+	{else}
+    The discussion around document "{$info.object_name|sanitize}" has been updated.
+	{/if}
+    <div class="actionoptions">
+        <div style="float:left; position: relative;">
+            {if !$is_broken}
+                <a href="{ktLink base="notify.php" query="id=`$info.notify_id`"}">{i18n}View Document{/i18n}</a>
+            {else}
+                <span class="descriptiveText">{i18n}Document is no longer available{/i18n}</span>
+            {/if}
+            &nbsp;|&nbsp;
+        </div>
+
+        <a href="{ktLink base="notify.php" query="id=`$info.notify_id`&notify_action=clear"}"
+            kt:deleteMessage="{i18n}Are you sure you wish to clear the notification?{/i18n}">
+        <span class="ktAction ktInline ktDelete"></span>{i18n}Clear Alert{/i18n}</a>
+    </div>
+</dd>

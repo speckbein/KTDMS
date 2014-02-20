@@ -1,0 +1,10 @@
+<p class="descriptiveText">{i18n}A checked-out document may not be modified by others. Please ensure that you check-in your documents to the repository as soon as you have finished working with them.{/i18n}</p>
+{if (!empty($documents))}
+<dl>
+{foreach item=oDocument from=$documents}
+  <dt>{$oDocument->getName()|sanitize} | <a href="{$context->getDocumentLink($oDocument)}">{i18n}View Document{/i18n}</a></dt>
+{/foreach}
+</ul>
+{else}
+<div class="ktInfoMessage"><span>{i18n}You have no documents which are currently checked out.{/i18n}</span></div>
+{/if}

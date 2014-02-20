@@ -1,0 +1,19 @@
+<h2><img src="{if $config->get("ui/morphEnabled") == '1'}{$rootUrl}/skins/kts_{$config->get("ui/morphTo")}/title_bullet.png{else}{$rootUrl}/resources/graphics/title_bullet.png{/if}"/>{i18n}Copy document{/i18n}: {$documentName}</h2>
+
+{assign var=iDocumentId value=$context->oDocument->getId()}
+
+<form method="POST" action="{$smarty.server.PHP_SELF}">
+<fieldset><legend>{i18n}Copy{/i18n}</legend>
+<input type="hidden" name="action" value="copy_final" />
+<input type="hidden" name="fDocumentId" value="{$iDocumentId}" />
+<input type="hidden" name="fFolderId" value="{$context->oFolder->getId()}" />
+{foreach from=$copy_fields item=oWidget }
+  {$oWidget->render()}
+{/foreach}
+
+<div class="form_actions">
+<input type="submit" name="submit[move]" value="{i18n}Complete Copy{/i18n}" />
+<input type="submit" name="submit[cancel]" value="{i18n}Cancel{/i18n}" />
+</div>
+</fieldset>
+</form>

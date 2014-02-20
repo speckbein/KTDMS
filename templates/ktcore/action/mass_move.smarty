@@ -1,0 +1,23 @@
+<p class="descriptiveText">{i18n}Move Files and Folders{/i18n}</p>
+
+
+<form method="POST" action="{$smarty.server.PHP_SELF}">
+<fieldset><legend>{i18n}Move{/i18n}</legend>
+<input type="hidden" name="action" value="finaliseMove" />
+<input type="hidden" name="fMoveCode" value="{$move_code}" />
+
+<div class="field">
+<label>{i18n}Items to move{/i18n}</label>
+<p class="descriptiveText">{i18n}The items that you selected to move.{/i18n}</p>
+{if ($folders)}{$folders}<br />{/if}
+{if ($documents)}{$documents}{/if}
+</div>
+
+{$collection->render()}
+
+<div class="form_actions">
+<input type="submit" name="submit[move]" value="{i18n}Move{/i18n}" />
+<a href="{addQS context=$context}action=main&fFolderId={$folder->getId()}{/addQS}" class="form_cancel">Cancel</a>
+</div>
+</fieldset>
+</form>

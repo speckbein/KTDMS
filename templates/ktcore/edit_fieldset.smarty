@@ -1,0 +1,79 @@
+<h2>{i18n}Edit Fieldset{/i18n}</h2>
+
+<form action="{$smarty.server.PHP_SELF}" method="POST">
+<fieldset>
+<legend>{i18n}Current Fields in Set{/i18n}</legend>
+<p>{i18n}Fields which are currently not included in any set can be added to this set.{/i18n}</p>
+
+<input type="hidden" name="id" value="{$setId}" />
+<input type="hidden" name="action" value="removeFromFieldset" />
+{if (empty($children))}
+<p>{i18n}No fields associated with this fieldset.{/i18n}</p>
+{else}
+{foreach item=oField from=$children}
+    <input type="checkbox" name="fieldsToRemove[]" value="{$oField->getId()}">{$oField->getName()}</input>
+{/foreach}
+{/if}
+<div>
+<input type="submit" name="submit" value="{i18n}Remove{/i18n}" />
+</div>
+</fieldset>
+</form>
+
+<fieldset>
+<legend>{i18n}Add Field to set{/i18n}</legend>
+<p>{i18n}Fields which are currently not included in any set can be added to this set.{/i18n}</p>
+<form action="{$smarty.server.PHP_SELF}" method="POST">
+<input type="hidden" name="id" value="{$setId}" />
+<input type="hidden" name="action" value="addToFieldset">
+
+{if (empty($freefields))}
+<p>{i18n}No free fields.{/i18n}</p>
+{else}
+<select name="fieldsToAdd[]" multiple="true">
+{foreach item=oField from=$freefields}
+    <option value="{$oField->getId()}">{$oField->getName()}</option>
+{/foreach}
+</select>
+{/if}
+<div>
+<input type="submit" name="submit" value="{i18n}Add to Fieldset{/i18n}" />
+</div>
+</form>
+</fieldset>
+
+
+{if ($fieldSet->canBeMadeConditional() === true)}
+<fieldset>
+<legend>{i18n}Make this fieldset conditional{/i18n}</legend>
+
+<form action="{$smarty.server.PHP_SELF}" method="POST">
+<input type="hidden" name="id" value="{$setId}" />
+<input type="hidden" name="action" value="makeConditionalSet">
+
+{if (empty($freefields))}
+<p>{i18n}No free fields.{/i18n}</p>
+{else}
+<select name="fieldsToAdd" multiple="true">
+{foreach item=oField from=$freefields}
+    <option value="{$oField->getId()}">{$oField->getName()}</option>
+{/foreach}
+</select>
+{/if}
+<div>
+<input type="submit" name="submit" value="{i18n}Add to Fieldset{/i18n}" />
+</div>
+</form>
+</fieldset>
+
+{else}
+{if ($fieldSet->getIsConditional())}
+{i18n}Field has conditions attached to it.{/i18n}
+<ul>
+  <li>{i18n}Manage conditions.{/i18n}</li>
+  <li>{i18n}Test conditions{/i18n}</li>
+</ul>
+{else}
+<p>{i18n}Fieldset cannot be made conditional. One of the fields must not be a lookup.{/i18n}</p>
+{/if}
+{/if}

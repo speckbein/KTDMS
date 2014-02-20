@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : repositories.xml
+    Created on : 25 May 2009, 10:33 AM
+    Author     : KnowledgeTree Team
+    Description:
+        Contains definitions for all repositories accessible via the CMIS API.
+-->
+
+<!--
+    TODO need to dynamically generate URLs rather than have them in the config.
+
+    NOTE When we move to the new system then I think we will need to also generate
+         Root locations based on selected workspace.  We will see when the time comes.
+ -->
+
+<root>
+    <repository>
+        <repositoryURI>http://127.0.0.1/</repositoryURI>
+        <repositoryInfo>
+            <repositoryId>0ad7de04-7914-41b1-b5ee-be9f0b626437</repositoryId>
+            <repositoryName>KnowledgeTree DMS</repositoryName>
+            <repositoryRelationship>self</repositoryRelationship>
+            <repositoryDescription>KnowledgeTree Repository</repositoryDescription>
+            <vendorName>KnowledgeTree</vendorName>
+            <productName>KnowledgeTree Document Management System</productName>
+            <productVersion>3.7</productVersion>
+            <rootFolderId>Root Folder</rootFolderId>
+            <cmisVersionsSupported>0.61</cmisVersionsSupported>
+        </repositoryInfo>
+        <repositoryCapabilities>
+            <capabilityMultifiling>false</capabilityMultifiling>
+            <capabilityUnfiling>false</capabilityUnfiling>
+            <capabilityVersionSpecificFiling>false</capabilityVersionSpecificFiling>
+            <capabilityPWCUpdateable>false</capabilityPWCUpdateable>
+            <capabilityPWCSearchable>false</capabilityPWCSearchable>
+            <capabilityAllVersionsSearchable>false</capabilityAllVersionsSearchable>
+            <capabilityQuery>None</capabilityQuery>
+            <capabilityFullText>None</capabilityFullText>
+            <capabilityJoin>NoJoin</capabilityJoin>
+        </repositoryCapabilities>
+        <supportedTypes>
+            <objectType>Document</objectType>
+            <objectType>Folder</objectType>
+        </supportedTypes>
+    </repository>
+</root>

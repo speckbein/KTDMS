@@ -1,0 +1,52 @@
+<h2><img src="{if $config->get("ui/morphEnabled") == '1'}{$rootUrl}/skins/kts_{$config->get("ui/morphTo")}/title_bullet.png{else}{$rootUrl}/resources/graphics/title_bullet.png{/if}"/>{i18n}Resolved permissions per user{/i18n}: {$context->oFolder->getName()|sanitize}</h2>
+
+<p class="descriptiveText">{i18n}This page shows the permissions that
+individual users have on this folder.  Only the users which have permissions
+assigned are shown.{/i18n}</p>
+
+<p class="descriptiveText">{i18n}Users may have permissions on this
+folder due to membership of a group, or fulfilling a specific role on
+this folder.{/i18n}</p>
+
+{if (empty($users)) }
+<div class="ktInfoMessage"><span>{i18n}No users have permissions on this item.{/i18n}</span></div>
+{else}
+
+{if $edit}
+{i18n}Manage security{/i18n}: <a href="{addQS}action=edit&fFolderId={$oFolder->getId()}{/addQS}">{i18n}Edit permissions{/i18n}</a>
+| <a href="{addQS}fFolderId={$oFolder->getId()}{/addQS}">{i18n}View permissions overview{/i18n}</a>
+{else}
+{i18n}Manage security{/i18n}: <a href="{addQS}fFolderId={$oFolder->getId()}{/addQS}">{i18n}View permissions overview{/i18n}</a>
+{/if}
+
+<table   class="kt_collection narrow" cellspacing="0" cellpadding="0" border="0">
+<thead>
+<tr>
+<th width="40%">{i18n}User{/i18n}</th>
+{ foreach item=oPerm from=$permissions }
+<th title="{$oPerm->getName()}" class="centered">{$oPerm->getHumanName()}</th>
+{ /foreach }
+</tr>
+</thead>
+<tbody>
+
+{ foreach item=sUserName key=iUserId from=$users }
+<td><span class="descriptiveText">{i18n}User: {/i18n}</span> {$sUserName}</td>
+  { foreach item=oPerm from=$permissions }
+    { assign var=iPermId value=$oPerm->getId() }
+    { assign var=bHasPerm value=$aMapPermissionUser[$iPermId][$iUserId] }
+
+{ if $bHasPerm }
+<td class="centered"><span class="ktAction ktInline ktAllowed">{i18n}Allowed{/i18n}</span></td>
+{ else }
+<td class="centered"><span class="ktAction ktInline ktDenied">{i18n}Denied{/i18n}</span></td>
+{ /if }
+
+  { /foreach }
+</tr>
+{ /foreach }
+
+</tbody>
+</table>
+{ /if }
+

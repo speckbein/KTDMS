@@ -1,0 +1,26 @@
+<p class="descriptiveText">{i18n}Moving a document relocates the document
+within the document repository.{/i18n}</p>
+
+{assign var=iDocumentId value=$context->oDocument->getId()}
+{capture assign=link}
+{"viewDocument"|generateControllerUrl:"fDocumentId=$iDocumentId"}
+{/capture}
+<p class="descriptiveText">{i18n arg_link=$link}If you do not intend to
+move this document, you should <a href="#link#">cancel the
+move</a>.{/i18n}</p>
+
+<form method="POST" action="{$smarty.server.PHP_SELF}">
+<fieldset><legend>{i18n}Move{/i18n}</legend>
+<input type="hidden" name="action" value="move" />
+<input type="hidden" name="fDocumentId" value="{$iDocumentId}" />
+{foreach from=$move_fields item=oWidget }
+  {$oWidget->render()}
+{/foreach}
+
+
+<div class="form_actions">
+<input type="submit" name="submit[move]" value="{i18n}Move{/i18n}" />
+<input type="submit" name="submit[cancel]" value="{i18n}Cancel{/i18n}" />
+</div>
+</fieldset>
+</form>

@@ -1,0 +1,34 @@
+<h2>{i18n}Confirm Forced Check-in{/i18n}</h2>
+<p class="descriptiveText">{i18n}Please confirm that this is the document that you wish to check-in.{/i18n}</p>
+
+<div class="document_details">
+<h3>{i18n}Document Details{/i18n}</h3>
+<dl class="metadata">
+   <dt>{i18n}Document Name{/i18n}</dt>
+   <dd>{$document->getName()|sanitize}</dd>
+
+   <dt>{i18n}Location{/i18n}</dt>
+   <dd>{$document->getDisplayPath()}</dd>
+
+   <dt>{i18n}Checked out by{/i18n}</dt>
+   {if ($checkout_user !== null)}
+   <dd>
+      {$checkout_user->getName()}
+   </dd>
+   {else}
+   <dd class="ktErrorMessage">
+      {i18n}The user who checked this document out is no longer valid.{/i18n}
+   </dd>
+   {/if}
+   </dd>
+</dl>
+</div>
+
+<form action="{$smarty.server.PHP_SELF}" method="POST">
+  <input type="hidden" name="action" value="checkin">
+  <input type="hidden" name="fDocumentId" value="{$document->getId()}">
+  <div class="form_actions">
+      <input type="submit" value="{i18n}Force Checkin{/i18n}" />
+      <input type="submit" name="kt_cancel[]" value="{i18n}Cancel{/i18n}" />
+  </div>
+</form>

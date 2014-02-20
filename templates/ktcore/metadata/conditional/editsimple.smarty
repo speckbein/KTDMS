@@ -1,0 +1,131 @@
+{capture assign=sCSS}
+{literal}
+/* inactivity */
+
+.active .inactivity_message { display: none; }
+
+/* select { width: 100%; } */
+
+.edit_button { margin-bottom: 0.5em; }
+.save_button,
+.done_button { display: none; margin-bottom: 0.5em;}
+
+.active.editing .save_button,
+.active.editing .done_button { display: block; }
+
+.active.editing .edit_button { display: none; }
+
+
+td { vertical-align: top; }
+.buttonset.inactive { background: transparent; }
+
+.inactive { background: #ccc; }
+.inactive .fixed_message,
+.inactive .unassigned_items,
+.inactive .available_behaviours,
+.inactive .behaviour_edit_options
+{
+   display: none;
+}
+
+.inactive .item_list { display: none; }
+
+.helpText {
+   color: #666;
+}
+
+
+/*   logging support */
+#brad-log .severity-INFO { color: blue; font-weight: bold; }
+#brad-log .severity-DEBUG { color: green; font-weight: bold; }
+#brad-log .severity-ERROR { color: red; font-weight: bold; }
+#brad-log .explanation { font-family: monospace; white-space: pre; }
+
+{/literal}
+{/capture}
+{$context->oPage->requireCSSStandalone($sCSS)}
+
+<!-- include the mochikit js -->
+
+{$context->oPage->requireJSResource("resources/js/taillog.js")}
+{$context->oPage->requireJSResource("resources/js/conditional_simple_edit.js")}
+
+
+
+{capture assign=sJS}
+addLoadEvent(partial(editSimpleField, {$iMasterFieldId}));
+{/capture}
+{$context->oPage->requireJSStandalone($sJS)}
+
+
+
+<h2>{i18n}Editing Fieldset Rules (Simple){/i18n}</h2>
+
+<p class="descriptiveText">{i18n}To make a value in a <strong>child field</strong> available to the user when another value is
+selected in a <strong>parent field</strong>, first ensure that the parent field is being edited (it will have "save" and "done"
+as the buttons at the bottom of the column) and then select the value for the parent field.  Now select the value(s) in
+the child column(s) you wish to be available to the user when the parent field's value is selected,
+and click "save".  Note you that you can use Ctrl-&lt;click&gt; to select multiple child values
+at the same time.{/i18n}</p>
+
+<p class="descriptiveText important">{i18n}Changes made here are stored immediately, without you needing to
+refresh the page.{/i18n}</p>
+
+<form method="POST" action="{$smarty.server.PHP_SELF}">
+<input type="hidden" name="fieldset_id" id="global-fieldset-id" value="{$fieldset_id}" />
+
+<table id="simple_conditional_edit">
+<thead>
+<tr>
+{foreach from=$aFields item=oField}
+  <th id="header_{$oField->getId()}">{$oField->getName()}</th>
+{/foreach}
+</tr>
+</thead>
+<tbody>
+<tr valign="top">
+
+{foreach from=$aFields item=oField}
+  <td class="inactive" id="md_{$oField->getId()}">
+     <p class="inactivity_message">{i18n}This field is not controlled by the currently active group.{/i18n}</p>
+     <div class="lookup_items">
+         <select class="item_list" size="5">
+  {foreach from=$oField->getEnabledValues() item=oMetaData}
+				<option value="{$oMetaData->getId()}">{$oMetaData->getName()}</option>
+  {/foreach}
+           </select>
+
+     </div>
+  </td>
+{/foreach}
+
+</tr>
+</tbody>
+<tfoot>
+<tr>
+{foreach from=$aFields item=oField}
+   <td class="buttonset" id="buttons_{$oField->getId()}">
+         <div class="form_actions">{capture assign=fid}{$oField->getId()}{/capture}
+             {if (!empty($ordering.$fid))}<input type="button" value="{i18n}edit field{/i18n}" class="edit_button" onclick="editSimpleField({$oField->getId()})" />{/if}
+             <input type="button" value="{i18n}save this dependency{/i18n}" class="save_button" onclick="saveSimpleField({$oField->getId()})" />
+         </div>
+   </td>
+{/foreach}
+</tr>
+</tfoot>
+</table>
+
+
+</form>
+{*
+<table id="brad-log">
+<tr>
+    <th>Severity</th>
+    <th>Time</th>
+    <th>Entry</th>
+</tr>
+<tbody  >
+
+</tbody>
+</table>
+*}

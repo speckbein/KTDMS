@@ -1,0 +1,119 @@
+<h2><img src="{if $config->get("ui/morphEnabled") == '1'}{$rootUrl}/skins/kts_{$config->get("ui/morphTo")}/title_bullet.png{else}{$rootUrl}/resources/graphics/title_bullet.png{/if}"/>{i18n}Document Links{/i18n}:<br />{$context->oDocument->getName()|sanitize}</h2>
+
+<p class="descriptiveText">{i18n}The current links to and from this document are displayed below.{/i18n}</p>
+
+
+<table class="kt_collection" cellspacing="0" cellpadding="0" style="width: auto;">
+    <thead>
+        <tr>
+            <th style="width:1em">&nbsp;</th>
+            <th>{i18n}Target{/i18n}</th>
+            <th>{i18n}Type{/i18n}</th>
+            <th>{i18n}Relationship{/i18n}</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+
+
+
+
+{if $links_from || $links_to || $links_external}
+
+{foreach from=$links_from item=link}
+
+{assign var="type" value=$link->getLinkType()}
+{assign var="target" value=$link->getChildDocument()}
+
+        <tr>
+            <td>
+            {if $write_permission}
+                {if $signatures}
+                    <a href="#" onclick="javascript: showSignatureForm('{$submit.sUrl}', '{$submit.heading}', 'ktcore.transactions.delete_link', 'document', '{addQS}action=delete&fDocumentId={$context->oDocument->getId()}&fDocumentLinkId={$link->getId()}{/addQS}', 'redirect', {$iDocId});" class="ktAction ktDelete">{i18n}Delete{/i18n}</a>
+                {else}
+                    <a href="{addQS}action=delete&fDocumentId={$context->oDocument->getId()}&fDocumentLinkId={$link->getId()}{/addQS}" class="ktAction ktDelete">{i18n}Delete{/i18n}</a>
+                {/if}
+            {else}
+                &nbsp;
+            {/if}
+            </td>
+
+            <td><a href="{"viewDocument"|generateControllerUrl}&qs[fDocumentId]={$target->getId()}&qs[action]=main" title="{"viewDocument"|generateControllerUrl}&qs[fDocumentId]={$target->getId()}&qs[action]=main">{$target->getName()|sanitize}</a></td>
+            <td>{$type->getName()}</td>
+            <td>{i18n}Linked <b>from</b> this document{/i18n}</td>
+        </tr>
+
+{/foreach}
+
+{foreach from=$links_to item=link}
+
+{assign var="type" value=$link->getLinkType()}
+{assign var="target" value=$link->getParentDocument()}
+
+        <tr>
+            <td>
+            {if $write_permission}
+                {if $signatures}
+                    <a href="#" onclick="javascript: showSignatureForm('{$submit.sUrl}', '{$submit.heading}', 'ktcore.transactions.delete_link', 'document', '{addQS}action=delete&fDocumentId={$context->oDocument->getId()}&fDocumentLinkId={$link->getId()}{/addQS}', 'redirect', {$iDocId});" class="ktAction ktDelete">{i18n}Delete{/i18n}</a>
+                {else}
+                    <a href="{addQS}action=delete&fDocumentId={$context->oDocument->getId()}&fDocumentLinkId={$link->getId()}{/addQS}" class="ktAction ktDelete">{i18n}Delete{/i18n}</a>
+                {/if}
+            {else}
+                &nbsp;
+            {/if}
+            </td>
+            <td><a title="{"viewDocument"|generateControllerUrl}&qs[fDocumentId]={$target->getId()}&qs[action]=main" href="{"viewDocument"|generateControllerUrl}&qs[fDocumentId]={$target->getId()}&qs[action]=main">{$target->getName()|sanitize}</a></td>
+            <td>{$type->getName()}</td>
+            <td>{i18n}Links <b>to</b> this document{/i18n}</td>
+        </tr>
+
+{/foreach}
+
+{foreach from=$links_external item=link}
+
+{assign var="type" value=$link->getLinkType()}
+{assign var="url" value=$link->getTargetUrl()}
+{assign var="name" value=$link->getTargetName()}
+
+        <tr>
+            <td>
+            {if $write_permission}
+                {if $signatures}
+                    <a href="#" onclick="javascript: showSignatureForm('{$submit.sUrl}', '{$submit.heading}', 'ktcore.transactions.delete_link', 'document', '{addQS}action=delete&fDocumentId={$iDocId}&fDocumentLinkId={$link->getId()}{/addQS}', 'redirect', {$iDocId});" class="ktAction ktDelete">{i18n}Delete{/i18n}</a>
+                {else}
+                    <a href="{addQS}action=delete&fDocumentId={$iDocId}&fDocumentLinkId={$link->getId()}{/addQS}" class="ktAction ktDelete">{i18n}Delete{/i18n}</a>
+                {/if}
+            {else}
+                &nbsp;
+            {/if}
+            </td>
+
+            <td><a href="{$url}" title='{$url}'>{$link->getTargetName()|sanitize}</a></td>
+            <td>{$type->getName()}</td>
+            <td>{i18n}External link <b>from</b> this document{/i18n}</td>
+        </tr>
+
+{/foreach}
+
+{else}
+<tr><td colspan="4" align="center">{i18n}There are no links to or from this document.{/i18n}</td></tr>
+{/if}
+
+
+
+    </tbody>
+</table>
+<br/>
+
+
+{if $write_permission}
+<a class="ktAction ktAdd ktInline" href="{addQS}action=new&fDocumentId={$context->oDocument->getId()}{/addQS}">{i18n}Add a new link{/i18n}</a>
+<a
+href="{addQS}action=new&fDocumentId={$context->oDocument->getId()}&fFolderId={$context->oDocument->getFolderId()}{/addQS}">{i18n}Add a new link{/i18n}</a>
+<br /><br />
+<a class="ktAction ktAdd ktInline" href="{addQS}action=external&fDocumentId={$iDocId}{/addQS}">{i18n}Add a new link{/i18n}</a>
+<a
+href="{addQS}action=external&fDocumentId={$iDocId}&fFolderId={$context->oDocument->getFolderId()}{/addQS}">{i18n}Add an external link{/i18n}</a>.
+{/if}
+

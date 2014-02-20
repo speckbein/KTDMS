@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="{$rootUrl}/resources/css/kt-framing.css" />
+<link rel="stylesheet" type="text/css" href="{$rootUrl}/resources/css/kt-contenttypes.css" />
+<link rel="stylesheet" type="text/css" href="{$rootUrl}/resources/css/kt-headings.css" />
+<!--[if lt IE 7]><style type="text/css" media="all">@import url({$rootUrl}/resources/css/kt-ie-icons.css);</style><![endif]-->
+
+<script type="text/javascript" src="{$rootUrl}/resources/js/kt-utility.js"> </script>
+<script type="text/javascript" src="{$rootUrl}/resources/js/toggleselect.js"> </script>
+<script type="text/javascript" src="{$rootUrl}/presentation/i18nJavascript.php"> </script>
+</head>
+
+<body class="browse_body">
+<div class="noportlets">
+<div id="content">
+
+<input type="hidden" name="{$targetname}" value="{$folder->getId()}" />
+
+{foreach from=$breadcrumbs item=breadcrumb name=bc}
+<a href="{$breadcrumb.url}">{$breadcrumb.name|sanitize}</a>
+{if !$smarty.foreach.bc.last}
+&raquo;
+{/if}
+{/foreach}
+{$collection->render()}
+</div>
+</div>
+
+</body>
+</html>

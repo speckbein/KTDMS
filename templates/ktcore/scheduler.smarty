@@ -1,0 +1,88 @@
+<h2>{i18n}Task Scheduler Management{/i18n}</h2>
+
+{* Display the list of tasks *}
+
+<p>
+<span class="descriptiveText">
+    {i18n}The scheduler runs document indexing and various house keeping tasks, etc in the background.
+    {/i18n}
+</span>
+</p>
+
+<div style="overflow: auto; width: 730px;">
+<table class="kt_collection" cellspacing = "0" cellpadding = "4">
+
+{if $aHeadings}
+<thead>
+    <tr>
+        {foreach from=$aHeadings item=head}
+            <th>
+                {$head}
+            </th>
+        {/foreach}
+    </tr>
+</thead>
+{/if}
+
+{if $aList}
+{foreach from=$aList item=task}
+{assign var=taskId value=$task->getId()}
+
+    <tr class="{cycle name=rows values=",odd"}">
+        <td width='2%'>
+            {$i++}
+        </td>
+        <td>
+            {$task->getTaskDiv()}
+        </td>
+        <td>
+            {$task->getFreqDiv()}
+            <div id="col_{$taskId}">
+            </div>
+            <div style="visibility: hidden; display: none;">
+                <input type="hidden" name="freq_{$taskId}" id="freq_{$taskId}" value="{$task->getFrequency()}" />
+            </div>
+        </td>
+        <td>
+            <div id="runDiv{$taskId}">
+                {if $task->getStatus() != 'disabled'}
+                    {$task->getRunTime()}
+                {/if}
+            </div>
+        </td>
+        <td>
+            <div id="prevDiv{$taskId}" style="display:none; visibility:hidden;">
+                <input type="hidden" name="prev{$taskId}" id="prev{$taskId}" value="{$task->getPrevious()}" />
+            </div>
+            {$task->getPrevious(TRUE)}
+        </td>
+        <td width="10%">
+            {$task->getRunDuration()}
+        </td>
+        <td>
+            {$task->getAlterFreqLink()}&nbsp;&nbsp;{$task->getRunNowLink()}&nbsp;&nbsp;{$task->getStatusLink()}
+        </td>
+    </tr>
+
+{/foreach}
+
+{else}
+    <tr>
+        <td class="descriptiveText" colspan="7">
+            {i18n}No tasks have been scheduled{/i18n}
+        </td>
+    </tr>
+{/if}
+</table>
+</div>
+
+<div id="formDiv" style="display: none; visibility: hidden;">
+    <form name="changefreq" id="changefreq" method="post" action="{$sUrl}">
+
+        <select name="frequency" id="frequency">
+            {html_options options=$aFrequencies}
+        </select>
+        <input type="hidden" name="fId" id="fId" value="" />
+        <input type="button" name="save" id="save" onclick='javascript: saveFreq("{$sUrl}");' value="{i18n}Save{/i18n}" />
+    </form>
+</div>

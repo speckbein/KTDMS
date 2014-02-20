@@ -1,0 +1,9 @@
+<h2>{i18n}Preferences{/i18n}</h2>
+
+<p class="descriptiveText">{i18n}You may change details about yourself by editing the entries below. Once you have completed the form, click on <strong>Update your details</strong>.{/i18n}</p>
+
+{$edit_form->render()}
+
+{if $show_password}
+        <p><a href="{addQS}action=setPassword{/addQS}">{i18n}Change your password.{/i18n}</a></p>
+{/if}

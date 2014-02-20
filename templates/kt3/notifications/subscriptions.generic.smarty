@@ -1,0 +1,9 @@
+<dt class="actionitem subscription">{$info.title|sanitize}</dt>
+<dd class="actionmessage">
+    <div class="actionoptions">
+
+        <a href="{ktLink base="notify.php" query="id=`$info.notify_id`&notify_action=clear"}"
+            kt:deleteMessage="{i18n}Are you sure you wish to clear the notification?{/i18n}">
+        <span class="ktAction ktInline ktDelete"></span>{i18n}Clear Alert{/i18n}</a>
+    </div>
+</dd>

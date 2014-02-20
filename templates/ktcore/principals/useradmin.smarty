@@ -1,0 +1,147 @@
+<h2>{i18n}User Management{/i18n}</h2>
+{literal}
+<script type="text/javascript">
+	function updateUser(updateAction)
+	{
+		var hiddenBox = document.getElementById("update_value");
+		hiddenBox.value = updateAction;
+		document.editUserForm.submit();
+	}
+	function confirmDelete ()
+	{
+		if(confirm("Are you sure you want to delete?"))
+		{
+			updateUser('delete');
+		}
+	}
+</script>
+{/literal}
+
+{if $can_add}
+<fieldset> <legend>{i18n}Add new users{/i18n}</legend> <p
+class="descriptiveText">{i18n}To add users to the DMS authentication
+provider, you need to provide them with credentials through this
+section.  If you are using an external source of login information
+like <strong>LDAP</strong>, ensure the appropriate plugin is loaded
+and use the section below.{/i18n}</p> <p><a
+href="{addQS}action=addUser{/addQS}" class="ktAction ktAddUser"
+style="float: left; padding-right: 0.5em;">{i18n}Add a new
+user{/i18n}</a><a href="{addQS}action=addUser{/addQS}">{i18n}Add a new
+user{/i18n}</a></p>
+</fieldset>
+
+{if $authentication_sources}
+   <form action="{$smarty.server.PHP_SELF}" method="POST">
+   <input type="hidden" name="action" value="addUserFromSource" />
+   <fieldset><legend>{i18n}Add a user from an authentication source{/i18n}</legend>
+
+<p class="descriptiveText">{i18n}Instead of manually creating the user within
+the document management system, the user can be found within an
+authentication source (such as an LDAP directory) that has already been
+configured.  This ensures that the user is correctly set up with limited
+intervention from the administrator, and that the user will not need to
+remember an additional password for the document management
+system.{/i18n}</p>
+
+   {entity_select name="source_id" entities=$authentication_sources}
+   <div class="form_actions ">
+     <input type="submit" name="submit" value="{i18n}Add from source{/i18n}" />
+   </div>
+   </fieldset>
+   </form>
+</p>
+{/if}
+
+{else}
+
+<div class="ktInfoMessage"><span>{i18n}You do not have enough available licenses to add more active users.  Please disable some existing ones if you wish to add new active users.{/i18n}</span></div>
+
+{/if}
+
+
+<!-- we roll both in here. -->
+<form action="{$smarty.server.PHP_SELF}" method="POST">
+<input type="hidden" name="do_search" value="1" />
+<fieldset>
+<legend>{i18n}Search for users{/i18n}</legend>
+{capture assign=link}{addQS}show_all=1{/addQS}{/capture}
+<p class="descriptiveText">{i18n arg_link=$link}Since there may be many users in the system, please
+select a group from the list below, or type a few letters from the person's username
+to begin. Alternatively, <a href="#link#">view all users</a> (note that this may be
+very slow if you have many users).{/i18n}</p>
+
+{foreach item=oWidget from=$search_fields}
+  {$oWidget->render()}
+{/foreach}
+
+<div class="form_actions">
+   <input type="submit" value="{i18n}Search For Users{/i18n}" />
+</div class="form_actions">
+</fieldset>
+</form>
+
+{if ($no_search === true)}
+{else}
+   {if (!empty($search_results))}
+
+<br />
+<form name="editUserForm" action="{$smarty.server.PHP_SELF}" method="post">
+<table class="kt_collection narrow" cellspacing="0" cellpadding="5">
+<thead>
+   <tr>
+   	   <th>&nbsp;</th>
+      <th>{i18n}Name{/i18n}</th>
+      <th>{i18n}Username{/i18n}</th>
+      <th>{i18n}Edit{/i18n}</th>
+      <th>{i18n}Enabled{/i18n}</th>
+
+      <th>{i18n}Group Memberships{/i18n}</th>
+      <th>{i18n}Current Groups{/i18n}</th>
+   </tr>
+</thead>
+<tbody>
+   <!-- do we want to batch here? -->
+     {foreach item=oUser from=$search_results}
+     {if ($oUser->getDisabled() != 2)}
+	     <tr class="{cycle values=odd,even}">
+	        <td class="centered">
+		{if ($oUser->getId() != ADMIN_USER_ID)}<input type="checkbox" name="edit_user[{$oUser->getId()}]" value="1"/>
+		{else}&mdash;{/if}
+		</td>
+	        <td>
+		{$oUser->getName()}</td>
+	        <td>{$oUser->getUsername()}</td>
+	        <td><a href="{addQS}action=editUser&user_id={$oUser->getId()}&old_search={$old_search}{/addQS}" class="ktAction ktEdit">{i18n}Edit{/i18n}</a></td>
+	        <td class="centered">
+	        {if ($oUser->getDisabled() == 1)}
+	            <span class="ktAction ktDenied" title="{i18n}Disabled{/i18n}">{i18n}Disabled{/i18n}</a>
+	        {else}
+	            <span class="ktAction ktAllowed" title="{i18n}Enabled{/i18n}">{i18n}Enabled{/i18n}</a>
+	        {/if}
+	        </td>
+
+
+
+
+	        <td><a href="{addQS}action=editgroups&user_id={$oUser->getId()}&old_search={$old_search}{/addQS}">{i18n}Manage Groups{/i18n}</a></td>
+	        <td class="title"><span class="descriptiveText">{$context->getGroupStringForUser($oUser)}</span></td>
+	     </tr>
+     {/if}
+     {/foreach}
+
+</tbody>
+</table>
+<div class="form_actions">
+<input type="hidden" name="action" value="change_enabled" />
+<input type="hidden" name="update_value" id="update_value" value="" />
+<input type="button" value="{i18n}Enable{/i18n}" id="enableButton" onclick="updateUser('enable');">
+<input type="button" value="{i18n}Disable{/i18n}" id="disableButton" onclick="updateUser('disable');">
+<input type="button" value="{i18n}Delete{/i18n}" id="deleteButton" onclick="confirmDelete();">
+
+</div>
+</form>
+{else}
+<div class="ktErrorMessage"><span>{i18n}No results for your search.{/i18n}</span></div>
+
+{/if}
+{/if}
